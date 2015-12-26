@@ -9,6 +9,8 @@ This script is licensed under The MIT License. **USE IT AT YOUR OWN RISK.**
 
 ## Set-up
 
+You need to have the server that allows to run the shell script.
+
 1. Add your server config in `concrete5-backup.sh`
 1. If you don't uncomment MYSQL_PASSWORD option, you will have to enter MySQL Password every time you run this script.
 1. Upload the `concrete5-backup.sh` to your server
