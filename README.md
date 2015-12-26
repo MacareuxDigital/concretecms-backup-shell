@@ -1,7 +1,7 @@
 # concrete5 backup shell:
 
 This is simple shell script to back up your concrete5.7.x site.
-Since you're using GitHub, I assume you know what you're doing.
+Since you're using GitHub, I assume you know what you're doing. This is the script that runs on your server.
 
 ## MIT LISENCE and NO GURANTEE.
 
