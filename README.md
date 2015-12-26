@@ -46,7 +46,7 @@ back up a SQL, and the files in application/files, packages/
 
 - --packages 
 - --package
-- -p:
+- -p
 
 ### HELP
 
