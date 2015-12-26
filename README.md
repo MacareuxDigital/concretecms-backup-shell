@@ -127,6 +127,10 @@ e.g.
 
 ## Version History
 
+### 1.0.1 (December 26, 2015)
+
+- Fix where the ALL option generates error because it was indicating the same zip location twice.
+
 ### 1.0 (December 26, 2015)
 
 - First version.
