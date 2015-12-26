@@ -32,11 +32,11 @@ At default, you still need to enter the MySQL Password.
 ### DEFAULT option
 
 back up a SQL and the files in application/files
-- - [no option]
+- [no option]
 - -- files
 - - f
 
-### ALL file
+### ALL file option
 
 back up a SQL and all files under WHERE_IS_CONCRETE5 path
 - --all
@@ -50,7 +50,7 @@ back up a SQL, and the files in application/files, packages/
 - --package
 - -p
 
-### HELP
+### HELP option
 
 Shows all the help options.
 
