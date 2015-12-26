@@ -118,3 +118,13 @@ Enter the MySQL username
 If you don't want to enter the password every time, uncomment the MYSQL_PASSWORD and enter the MySQL password.
 
 `MYSQL_PASSWORD="root"`
+
+## Version History
+
+### 1.0 (December 26, 2015)
+
+- First version.
+
+## Contact
+
+http://katzueno.com/
