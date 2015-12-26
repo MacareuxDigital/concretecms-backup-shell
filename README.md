@@ -19,8 +19,10 @@ It's is highly advised that you know what you're doing with this script. You MUS
 
 ## How to Run and Options
 
-`cd path/to/shell/file`
-`sh concrete5-backup.sh [option]`
+```
+cd path/to/shell/file
+sh concrete5-backup.sh [option]
+```
 
 At default, you still need to enter the MySQL Password.
 
