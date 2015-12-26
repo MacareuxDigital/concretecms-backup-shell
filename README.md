@@ -130,3 +130,6 @@ If you don't want to enter the password every time, uncomment the MYSQL_PASSWORD
 ## Contact
 
 http://katzueno.com/
+
+Please feel free to create an issue or send me a pull request.
+Your feedback is always welcome!
