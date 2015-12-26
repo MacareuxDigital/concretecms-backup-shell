@@ -29,7 +29,7 @@ sh concrete5-backup.sh [option]
 At default, you still need to enter the MySQL Password.
 
 
-### Default `file` option
+### DEFAULT option
 
 back up a SQL and the files in application/files
 - - [no option]
@@ -114,6 +114,7 @@ e.g.
 
 Enter the MySQL username
 
+e.g.
 `MYSQL_USER="root"`
 
 
@@ -121,6 +122,7 @@ Enter the MySQL username
 
 If you don't want to enter the password every time, uncomment the MYSQL_PASSWORD and enter the MySQL password.
 
+e.g.
 `MYSQL_PASSWORD="root"`
 
 ## Version History
