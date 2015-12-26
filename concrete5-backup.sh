@@ -31,6 +31,7 @@ MYSQL_USER="root"
 # ==============================
 
 # ---- Checking Variable -----
+echo "c5 Backup: Checking variables..."
 if [ -n "$WHERE_TO_SAVE" ]; then
 if [ -n "$WHERE_IS_CONCRETE5" ]; then
 if [ -n "$NOW_TIME" ]; then
@@ -39,7 +40,6 @@ if [ -n "$MYSQL_USER" ]; then
 if [ -n "$MYSQL_NAME" ]; then
 
 # ---- Checking The Options -----
-NO_OPTION=1
 if [ "$1" == "--all" ] || [ "$1" == "-a" ]; then
     echo "c5 Backup: You've chosen the ALL option. Now we're backing up all concrete5 directory files."
     ZIP_OPTION="${FILE_NAME}_${NOW_TIME}.sql ./"
@@ -47,11 +47,11 @@ if [ "$1" == "--all" ] || [ "$1" == "-a" ]; then
 elif [ "$1" == "--packages" ] || [ "$1" == "--package" ] || [ "$1" == "-p" ]; then
     echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/files and packages/ folder."
     ZIP_OPTION="${FILE_NAME}_${NOW_TIME}.sql ./application/files/ ./packages/"
-    NO_OPTION=0
+    NO_OPTION="0"
 elif [ "$1" == "--file" ] || [ "$1" == "-f" ] || [ "$1" == "" ]; then
     echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL and application/files."
     ZIP_OPTION="${FILE_NAME}_${NOW_TIME}.sql ./application/files/"
-    NO_OPTION=0
+    NO_OPTION="0"
 elif [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo "===================="
     echo "c5 Backup: Options"
@@ -66,7 +66,7 @@ elif [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo ""
     exit
 else
-    NO_OPTION=1
+    NO_OPTION="1"
 fi
 
 if [ "$NO_OPTION" == "0" ]; then
@@ -78,7 +78,6 @@ echo "c5 Backup: USE IT AT YOUR OWN RISK!"
 echo "===================="
 echo "c5 Backup:"
 echo "c5 Backup: Starting concrete5 backup..."
-echo "c5 Backup: Checking variables..."
 
 # ---- Executing the commands -----
 echo "c5 Backup: Switching current directory to"
