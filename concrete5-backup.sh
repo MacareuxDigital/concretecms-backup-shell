@@ -30,33 +30,6 @@ MYSQL_USER="root"
 #
 # ==============================
 
-# ---- Checking Variable -----
-echo "c5 Backup: Checking variables..."
-if [ -z "$WHERE_TO_SAVE" ] || [ "$WHERE_TO_SAVE" = " " ]; then
-    echo "c5 Backup ERROR: WHERE_TO_SAVE variable is not set"
-    exit
-fi
-if [ -z "$WHERE_IS_CONCRETE5" ] || [ "$WHERE_IS_CONCRETE5" = " " ]; then
-    echo "c5 Backup ERROR: WHERE_IS_CONCRETE5 variable is not set"
-    exit
-fi
-if [ -z "$NOW_TIME" ] || [ "$NOW_TIME" = " " ]; then
-    echo "c5 Backup ERROR: NOW_TIME variable is not set"
-    exit
-fi
-if [ -z "$MYSQL_SERVER" ] || [ "$MYSQL_SERVER" = " " ]; then
-    echo "c5 Backup ERROR: MYSQL_SERVER variable is not set"
-    exit
-fi
-if [ -z "$MYSQL_USER" ] || [ "$MYSQL_USER" = " " ]; then
-    echo "c5 Backup ERROR: MYSQL_USER variable is not set"
-    exit
-fi
-if [ -z "$MYSQL_NAME" ] || [ "$MYSQL_NAME" = " " ]; then
-    echo "c5 Backup ERROR: MYSQL_NAME variable is not set"
-    exit
-fi
-
 # ---- Checking The Options -----
 BASE_PATH=''
 if [ "$2" = "-a" ] || [ "$2" = "--absolute" ]; then
@@ -84,7 +57,7 @@ elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "
     ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/"
     NO_OPTION="0"
 elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    echo <<EOF
+    echo "
     ====================
     c5 Backup: Options
     ====================
@@ -106,8 +79,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     ====================
     
     Have a good day! from katzueno.com
-   
-EOF
+"
     exit
 else
     NO_OPTION="1"
@@ -118,6 +90,32 @@ if [ "$NO_OPTION" = "1" ] || [ "$NO_2nd_OPTION" = "1" ]; then
     exit
 fi
 
+# ---- Checking Variable -----
+echo "c5 Backup: Checking variables..."
+if [ -z "$WHERE_TO_SAVE" ] || [ "$WHERE_TO_SAVE" = " " ]; then
+    echo "c5 Backup ERROR: WHERE_TO_SAVE variable is not set"
+    exit
+fi
+if [ -z "$WHERE_IS_CONCRETE5" ] || [ "$WHERE_IS_CONCRETE5" = " " ]; then
+    echo "c5 Backup ERROR: WHERE_IS_CONCRETE5 variable is not set"
+    exit
+fi
+if [ -z "$NOW_TIME" ] || [ "$NOW_TIME" = " " ]; then
+    echo "c5 Backup ERROR: NOW_TIME variable is not set"
+    exit
+fi
+if [ -z "$MYSQL_SERVER" ] || [ "$MYSQL_SERVER" = " " ]; then
+    echo "c5 Backup ERROR: MYSQL_SERVER variable is not set"
+    exit
+fi
+if [ -z "$MYSQL_USER" ] || [ "$MYSQL_USER" = " " ]; then
+    echo "c5 Backup ERROR: MYSQL_USER variable is not set"
+    exit
+fi
+if [ -z "$MYSQL_NAME" ] || [ "$MYSQL_NAME" = " " ]; then
+    echo "c5 Backup ERROR: MYSQL_NAME variable is not set"
+    exit
+fi
 
 # ---- Starting shell -----
 echo "===================="
