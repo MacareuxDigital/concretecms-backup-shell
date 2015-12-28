@@ -32,33 +32,27 @@ MYSQL_USER="root"
 
 # ---- Checking Variable -----
 echo "c5 Backup: Checking variables..."
-if [ -n "$WHERE_TO_SAVE" ]; then
-else
+if [ -z "$WHERE_TO_SAVE" ] || [ "$WHERE_TO_SAVE" = " " ]; then
     echo "c5 Backup ERROR: WHERE_TO_SAVE variable is not set"
     exit
 fi
-if [ -n "$WHERE_IS_CONCRETE5" ]; then
-else
+if [ -z "$WHERE_IS_CONCRETE5" ] || [ "$WHERE_IS_CONCRETE5" = " " ]; then
     echo "c5 Backup ERROR: WHERE_IS_CONCRETE5 variable is not set"
     exit
 fi
-if [ -n "$NOW_TIME" ]; then
-else
+if [ -z "$NOW_TIME" ] || [ "$NOW_TIME" = " " ]; then
     echo "c5 Backup ERROR: NOW_TIME variable is not set"
     exit
 fi
-if [ -n "$MYSQL_SERVER" ]; then
-else
+if [ -z "$MYSQL_SERVER" ] || [ "$MYSQL_SERVER" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_SERVER variable is not set"
     exit
 fi
-if [ -n "$MYSQL_USER" ]; then
-else
+if [ -z "$MYSQL_USER" ] || [ "$MYSQL_USER" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_USER variable is not set"
     exit
 fi
-if [ -n "$MYSQL_NAME" ]; then
-else
+if [ -z "$MYSQL_NAME" ] || [ "$MYSQL_NAME" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_NAME variable is not set"
     exit
 fi
