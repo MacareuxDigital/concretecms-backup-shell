@@ -164,5 +164,3 @@ echo "${WHERE_TO_SAVE}"
 mv ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${WHERE_TO_SAVE}
 
 echo "c5 Backup: Completed!"
-
-
