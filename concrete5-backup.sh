@@ -68,7 +68,7 @@ BASE_PATH=''
 if [ "$2" == "-a" ] || [ "$2" == "--absolute" ]; then
     BASE_PATH="${WHERE_IS_CONCRETE5}"
 elif if [ "$2" == "-r" ] || [ "$2" == "--relative" ] || [ "$2" == "" ]; then
-    BASE_PATH='.'
+    BASE_PATH="."
 else
     NO_OPTION="1"
 fi
