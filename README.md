@@ -19,30 +19,54 @@ You need to have the server that allows to run the shell script.
 
 It's is highly advised that you know what you're doing with this script. You MUST have certain amount of knowledge of what shell script is.
 
-## How to Run and Options
+## CAUTION: Check your cocnrete5 folder.
 
-```
-cd path/to/shell/file
-sh concrete5-backup.sh [option]
-```
+This script first save the SQL dump file onto concrete5 directory. If the script fails, it may leave the SQL file under the server. MAKE SURE to check the server occasionally.
+
+## How to Run and Options
 
 At default, you still need to enter the MySQL Password.
 
+### Format
 
-### DEFAULT option
+```
+cd path/to/shell/file
+sh concrete5-backup.sh [1st option] [2nd option]
+```
+
+### Example
+
+```
+cd /var/www/html
+sh concrete5-backup.sh --all --relative
+```
+
+### 1st Option
+
+1st option will determine how much file you want to backup
+
+#### FILES option (default)
 
 back up a SQL and the files in application/files
 - [no option]
 - -- files
+- -- file
 - - f
 
-### ALL file option
+#### DATABASE option
+
+back up only a SQL dump fule under WHERE_IS_CONCRETE5 path
+
+- --database
+- -d
+
+#### ALL file option
 
 back up a SQL and all files under WHERE_IS_CONCRETE5 path
 - --all
 - -a
 
-### PACKAGE option
+#### PACKAGE option
 
 back up a SQL, and the files in application/files, packages/
 
@@ -50,12 +74,33 @@ back up a SQL, and the files in application/files, packages/
 - --package
 - -p
 
-### HELP option
+#### HELP option
 
 Shows all the help options.
 
 - --help
 - -h
+
+### 2nd option
+
+2nd option determine if you need to work as absolute path or relative path. A Mac OS User reported that they need to be specify absolute path.
+
+You MUST specify 1st option if you want to specify 2nd option.
+
+### RELATIVE option (default) 
+
+The shell runs relative path.
+
+- [default]
+- -r
+- --relative
+
+### ABSOLUTE option
+
+The shell always use absolute path when dumping and zipping files. 
+
+- -a
+- --absolute
 
 
 ## VARIABLES TO SET
@@ -126,6 +171,11 @@ e.g.
 `MYSQL_PASSWORD="root"`
 
 ## Version History
+
+### 2.0 (December 28, 2015)
+
+- `--single-transaction` option added to MySQLdump comman (thanks Endo-san)
+- 2nd option of relative path or absolute path added for Mac OS user (thanks Endo-san)
 
 ### 1.0.1 (December 26, 2015)
 
