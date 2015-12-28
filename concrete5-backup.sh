@@ -92,6 +92,7 @@ elif [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo "--------------------"
     echo "--files OR --file OR -f: back up a SQL and the files in application/files. This is default option."
     echo "--all OR -a: back up a SQL and all files under WHERE_IS_CONCRETE5 path"
+    echo "--database OR -d: back up only a SQL dump"
     echo "--packages OR --package OR -p: back up a SQL, and the files in application/files, packages/"
     echo "--help OR -h: This help option."
     echo "--------------------"
