@@ -84,28 +84,30 @@ elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "
     ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/"
     NO_OPTION="0"
 elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    echo "===================="
-    echo "c5 Backup: Options"
-    echo "===================="
-    echo "--------------------"
-    echo "First Option"
-    echo "--------------------"
-    echo "--files OR --file OR -f: back up a SQL and the files in application/files. This is default option."
-    echo "--all OR -a: back up a SQL and all files under WHERE_IS_CONCRETE5 path"
-    echo "--database OR -d: back up only a SQL dump"
-    echo "--packages OR --package OR -p: back up a SQL, and the files in application/files, packages/"
-    echo "--help OR -h: This help option."
-    echo "--------------------"
-    echo "Second Option"
-    echo "--------------------"
-    echo "-r OR --relative: This is default option. You don't can leave this option blank"
-    echo "-a OR --absolute: The script will execute using absolute path. Zip file may contain the folder structure"
-    echo ""
-    echo "* Second option is optional. You must specify 1st option if you want to specify 2nd option."
-    echo "===================="
-    echo ""
-    echo "Have a good day! from katzueno.com"
-    echo ""
+    echo <<EOF
+    ====================
+    c5 Backup: Options
+    ====================
+    --------------------
+    First Option
+    --------------------
+    --files OR --file OR -f: back up a SQL and the files in application/files. This is default option.
+    --all OR -a: back up a SQL and all files under WHERE_IS_CONCRETE5 path
+    --database OR -d: back up only a SQL dump
+    --packages OR --package OR -p: back up a SQL, and the files in application/files, packages/
+    --help OR -h: This help option.
+    --------------------
+    Second Option
+    --------------------
+    -r OR --relative: This is default option. You don't can leave this option blank
+    -a OR --absolute: The script will execute using absolute path. Zip file may contain the folder structure
+    
+    * Second option is optional. You must specify 1st option if you want to specify 2nd option.
+    ====================
+    
+    Have a good day! from katzueno.com
+   
+EOF
     exit
 else
     NO_OPTION="1"
