@@ -72,7 +72,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     --------------------
     Second Option
     --------------------
-    -r OR --relative: This is default option. You don't can leave this option blank
+    -r OR --relative: This is default option. You can leave this option blank
     -a OR --absolute: The script will execute using absolute path. Zip file may contain the folder structure
     
     * Second option is optional. You must specify 1st option if you want to specify 2nd option.
