@@ -136,7 +136,7 @@ if [ -n "$MYSQL_PASSWORD" ]; then
     ret=$?
     if [ "$ret" = 0 ]; then
         echo ""
-        echo "c5 Backup: MySQL Database dumped successfully."
+        echo "c5 Backup: MySQL Database was dumped successfully."
     else
         echo "c5 Backup: ERROR: MySQL password failed. You must type MySQL password manually. OR hit ENTER if you want to stop this script now."
         set -e
@@ -154,7 +154,7 @@ zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${ZIP_OPTION}
 echo "c5 Backup: Now removing SQL dump file..."
 rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
 
-echo "c5 Backup: Now moving the back up file to the final destination..."
+echo "c5 Backup: Now moving the backup file(s) to the final destination..."
 echo "${WHERE_TO_SAVE}"
 mv ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${WHERE_TO_SAVE}
 
