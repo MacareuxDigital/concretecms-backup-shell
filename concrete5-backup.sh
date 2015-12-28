@@ -15,7 +15,7 @@ set -e
 
 # VARIABLES
 # ----------
-NOW_TIME=`date "+%Y%m%d%H%M%S"`
+NOW_TIME=$(date "+%Y%m%d%H%M%S")
 WHERE_TO_SAVE="/var/www/html/backup"
 WHERE_IS_CONCRETE5="/var/www/html/www"
 FILE_NAME="katzueno"
@@ -59,31 +59,31 @@ fi
 
 # ---- Checking The Options -----
 BASE_PATH=''
-if [ "$2" == "-a" ] || [ "$2" == "--absolute" ]; then
+if [ "$2" = "-a" ] || [ "$2" = "--absolute" ]; then
     BASE_PATH="${WHERE_IS_CONCRETE5}"
-elif if [ "$2" == "-r" ] || [ "$2" == "--relative" ] || [ "$2" == "" ]; then
+elif [ "$2" = "-r" ] || [ "$2" = "--relative" ] || [ "$2" = "" ]; then
     BASE_PATH="."
 else
-    NO_OPTION="1"
+    NO_2nd_OPTION="1"
 fi
 
-if [ "$1" == "--all" ] || [ "$1" == "-a" ]; then
+if [ "$1" = "--all" ] || [ "$1" = "-a" ]; then
     echo "c5 Backup: You've chosen the ALL option. Now we're backing up all concrete5 directory files."
     ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/"
     NO_OPTION="0"
-elif [ "$1" == "--packages" ] || [ "$1" == "--package" ] || [ "$1" == "-p" ]; then
+elif [ "$1" = "--packages" ] || [ "$1" = "--package" ] || [ "$1" = "-p" ]; then
     echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/files and packages/ folder."
     ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/packages/"
     NO_OPTION="0"
-elif [ "$1" == "--database" ] || [ "$1" == "-d" ]; then
+elif [ "$1" = "--database" ] || [ "$1" = "-d" ]; then
     echo "c5 Backup: You've chosen the DATABASE option. Now we're only backing up the SQL file."
     ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql"
     NO_OPTION="0"
-elif [ "$1" == "--file" ] || [ "$1" == "-files" ] || [ "$1" == "-f" ] || [ "$1" == "" ]; then
+elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
     echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL and application/files."
     ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/"
     NO_OPTION="0"
-elif [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     echo "===================="
     echo "c5 Backup: Options"
     echo "===================="
@@ -111,7 +111,7 @@ else
     NO_OPTION="1"
 fi
 
-if [ "$NO_OPTION" == "1" ]; then
+if [ "$NO_OPTION" = "1" ] || [ "$NO_2nd_OPTION" = "1" ]; then
     echo "c5 Backup ERROR: You specified WRONG OPTION. Please try 'sh backup.sh -h' for the available options."
     exit
 fi
@@ -134,7 +134,7 @@ if [ -n "$MYSQL_PASSWORD" ]; then
     set +e
         mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} --password=${MYSQL_PASSWORD} --single-transaction --default-character-set=utf8 ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
     ret=$?
-    if [ "$ret" -eq 0 ]; then
+    if [ "$ret" = 0 ]; then
         echo ""
         echo "c5 Backup: MySQL Database dumped successfully."
     else
