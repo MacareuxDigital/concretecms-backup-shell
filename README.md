@@ -83,9 +83,10 @@ Shows all the help options.
 
 ### 2nd option
 
-2nd option determine if you need to work as absolute path or relative path. A Mac OS User reported that they need to be specify absolute path.
-
 You MUST specify 1st option if you want to specify 2nd option.
+
+2nd option determine if you need to work as absolute path or relative path. A Mac OS User reported that they need to be specify absolute path. You may need to use the 2nd option if you're running this as a cron job.
+
 
 #### RELATIVE option (default) 
 
