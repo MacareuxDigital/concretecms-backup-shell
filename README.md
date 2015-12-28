@@ -87,7 +87,7 @@ Shows all the help options.
 
 You MUST specify 1st option if you want to specify 2nd option.
 
-### RELATIVE option (default) 
+#### RELATIVE option (default) 
 
 The shell runs relative path.
 
@@ -95,7 +95,7 @@ The shell runs relative path.
 - -r
 - --relative
 
-### ABSOLUTE option
+#### ABSOLUTE option
 
 The shell always use absolute path when dumping and zipping files. 
 
