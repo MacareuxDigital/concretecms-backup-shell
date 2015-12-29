@@ -49,9 +49,9 @@ sh concrete5-backup.sh --all --relative
 
 back up a SQL and the files in application/files
 - [no option]
-- -- files
-- -- file
-- - f
+- --files
+- --file
+- -f
 
 #### DATABASE option
 
