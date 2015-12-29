@@ -19,7 +19,7 @@ You need to have the server that allows to run the shell script.
 
 It's is highly advised that you know what you're doing with this script. You MUST have certain amount of knowledge of what shell script is.
 
-## CAUTION: Check your cocnrete5 folder.
+## CAUTION: Check your concrete5 folder.
 
 This script first save the SQL dump file onto concrete5 directory. If the script fails, it may leave the SQL file under the server. MAKE SURE to check the server occasionally.
 
