@@ -181,7 +181,7 @@ e.g.
 
 ### 2.0 (December 28, 2015)
 
-- `--single-transaction` option added to MySQLdump comman (thanks Endo-san)
+- `--single-transaction` option added to MySQLdump command (thanks Endo-san)
 - 2nd option of relative path or absolute path added for Mac OS user (thanks Endo-san)
 - database option added: option to only back-up the SQL dump file
 - Some script validation using [www.shellcheck.net](http://www.shellcheck.net)
