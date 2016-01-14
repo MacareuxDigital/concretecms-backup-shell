@@ -171,6 +171,12 @@ If you don't want to enter the password every time, uncomment the MYSQL_PASSWORD
 e.g.
 `MYSQL_PASSWORD="root"`
 
+
+## Future Plan
+
+- Support of TAR
+    - (Actually, you could uncomment line 153 and 160 and comment-out line 154 and 161, if you want tar now.) 
+
 ## Version History
 
 ### 2.0 (December 28, 2015)
