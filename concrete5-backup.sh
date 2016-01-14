@@ -150,6 +150,7 @@ fi
 
 echo "c5 Backup: Now zipping files..."
 zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${ZIP_OPTION}
+# tar cfz ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar ${ZIP_OPTION}
 
 echo "c5 Backup: Now removing SQL dump file..."
 rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
@@ -157,5 +158,6 @@ rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
 echo "c5 Backup: Now moving the backup file(s) to the final destination..."
 echo "${WHERE_TO_SAVE}"
 mv ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${WHERE_TO_SAVE}
+# mv ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar ${WHERE_TO_SAVE}
 
 echo "c5 Backup: Completed!"
