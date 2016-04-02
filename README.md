@@ -1,6 +1,6 @@
-# concrete5 backup shell:
+# concrete5 backup shell (legacy):
 
-This is simple shell script to back up your concrete5.7.x site.
+This is simple shell script to back up your concrete5.6.x site.
 Since you're using GitHub, I assume you know what you're doing. This is the script that runs on your server.
 
 ## MIT LICENSE and NO GUARANTEE
@@ -178,6 +178,10 @@ e.g.
     - (Actually, you could uncomment line 153 and 160 and comment-out line 154 and 161, if you want tar now.) 
 
 ## Version History
+
+### 2.0L (April 3, 2016)
+
+Made the legacy version to support concrete5.6.x and before. Switch the branch to [legacy](https://github.com/katzueno/concrete5-backup-shell/tree/legacy).
 
 ### 2.0 (December 28, 2015)
 
