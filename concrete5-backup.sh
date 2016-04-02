@@ -2,7 +2,7 @@
 #
 # concrete5 backup shell:
 # ----------
-# Version 2.0
+# Version 2.0L
 # By katzueno
 
 # INSTRUCTION:
@@ -46,7 +46,7 @@ if [ "$1" = "--all" ] || [ "$1" = "-a" ]; then
     NO_OPTION="0"
 elif [ "$1" = "--packages" ] || [ "$1" = "--package" ] || [ "$1" = "-p" ]; then
     echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/files and packages/ folder."
-    ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/packages/"
+    ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/files/ ${BASE_PATH}/packages/"
     NO_OPTION="0"
 elif [ "$1" = "--database" ] || [ "$1" = "-d" ]; then
     echo "c5 Backup: You've chosen the DATABASE option. Now we're only backing up the SQL file."
@@ -54,7 +54,7 @@ elif [ "$1" = "--database" ] || [ "$1" = "-d" ]; then
     NO_OPTION="0"
 elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
     echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL and application/files."
-    ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/"
+    ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/files/"
     NO_OPTION="0"
 elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     echo "
