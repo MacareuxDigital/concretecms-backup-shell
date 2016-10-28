@@ -55,7 +55,7 @@ back up a SQL and the files in application/files
 
 #### DATABASE option
 
-back up only a SQL dump fule under WHERE_IS_CONCRETE5 path
+back up only a SQL dump file under WHERE_IS_CONCRETE5 path
 
 - --database
 - -d
