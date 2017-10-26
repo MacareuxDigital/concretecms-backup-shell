@@ -47,7 +47,7 @@ sh concrete5-backup.sh --all --relative
 
 #### FILES option (default)
 
-back up a SQL and the files in application/files
+back up a SQL and the files in application/
 - [no option]
 - --files
 - --file
@@ -68,7 +68,7 @@ back up a SQL and all files under WHERE_IS_CONCRETE5 path
 
 #### PACKAGE option
 
-back up a SQL, and the files in application/files, packages/
+back up a SQL, and the files in application/, packages/
 
 - --packages 
 - --package
