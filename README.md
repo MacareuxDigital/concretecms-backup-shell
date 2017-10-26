@@ -45,7 +45,7 @@ sh concrete5-backup.sh --all --relative
 
 1st option will determine how much file you want to backup
 
-#### FILES option (default)
+#### FILES option
 
 back up a SQL and the files in application/
 - [no option]
