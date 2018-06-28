@@ -45,8 +45,8 @@ if [ "$1" = "--all" ] || [ "$1" = "-a" ]; then
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/"
     NO_OPTION="0"
 elif [ "$1" = "--packages" ] || [ "$1" = "--package" ] || [ "$1" = "-p" ]; then
-    echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/files and packages/ folder."
-    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/packages/"
+    echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/ and packages/ folder."
+    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/packages/"
     NO_OPTION="0"
 elif [ "$1" = "--database" ] || [ "$1" = "-d" ]; then
     echo "c5 Backup: You've chosen the DATABASE option. Now we're only backing up the SQL file."
@@ -67,7 +67,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     --files OR --file OR -f: back up a SQL and the files in application/files. This is default option.
     --all OR -a: back up a SQL and all files under WHERE_IS_CONCRETE5 path
     --database OR -d: back up only a SQL dump
-    --packages OR --package OR -p: back up a SQL, and the files in application/files, packages/
+    --packages OR --package OR -p: back up a SQL, and the files in application/, packages/
     --help OR -h: This help option.
     --------------------
     Second Option
