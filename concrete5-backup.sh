@@ -2,7 +2,7 @@
 #
 # concrete5 backup shell:
 # ----------
-# Version 2.0
+# Version 2.1
 # By katzueno
 
 # INSTRUCTION:
@@ -42,19 +42,19 @@ fi
 
 if [ "$1" = "--all" ] || [ "$1" = "-a" ]; then
     echo "c5 Backup: You've chosen the ALL option. Now we're backing up all concrete5 directory files."
-    ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/"
+    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/"
     NO_OPTION="0"
 elif [ "$1" = "--packages" ] || [ "$1" = "--package" ] || [ "$1" = "-p" ]; then
     echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/files and packages/ folder."
-    ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/packages/"
+    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/packages/"
     NO_OPTION="0"
 elif [ "$1" = "--database" ] || [ "$1" = "-d" ]; then
     echo "c5 Backup: You've chosen the DATABASE option. Now we're only backing up the SQL file."
-    ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql"
+    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql"
     NO_OPTION="0"
 elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
     echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL and application/files."
-    ZIP_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/"
+    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/"
     NO_OPTION="0"
 elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     echo "
@@ -149,8 +149,8 @@ else
 fi
 
 echo "c5 Backup: Now zipping files..."
-zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${ZIP_OPTION}
-# tar cfz ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar ${ZIP_OPTION}
+# zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${TAR_OPTION}
+tar -cvzpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz ${TAR_OPTION}
 
 echo "c5 Backup: Now removing SQL dump file..."
 rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
