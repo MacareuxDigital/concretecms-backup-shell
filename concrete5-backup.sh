@@ -42,7 +42,7 @@ fi
 
 if [ "$1" = "--all" ] || [ "$1" = "-a" ]; then
     echo "c5 Backup: You've chosen the ALL option. Now we're backing up all concrete5 directory files."
-    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/"
+    TAR_OPTION="${BASE_PATH}/*"
     NO_OPTION="0"
 elif [ "$1" = "--packages" ] || [ "$1" = "--package" ] || [ "$1" = "-p" ]; then
     echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/ and packages/ folder."
@@ -73,7 +73,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     Second Option
     --------------------
     -r OR --relative: This is default option. You can leave this option blank
-    -a OR --absolute: The script will execute using absolute path. Zip file may contain the folder structure
+    -a OR --absolute: The script will execute using absolute path.
     
     * Second option is optional. You must specify 1st option if you want to specify 2nd option.
     ====================
@@ -148,7 +148,7 @@ else
     mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction --default-character-set=utf8 ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
 fi
 
-echo "c5 Backup: Now zipping files..."
+echo "c5 Backup: Now compressing files into a tar file..."
 # zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${TAR_OPTION}
 tar -czpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz -C ${BASE_PATH} ${TAR_OPTION}
 
