@@ -73,7 +73,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     Second Option
     --------------------
     -r OR --relative: This is default option. You can leave this option blank
-    -a OR --absolute: The script will execute using absolute path. Zip file may contain the folder structure
+    -a OR --absolute: The script will execute using absolute path.
     
     * Second option is optional. You must specify 1st option if you want to specify 2nd option.
     ====================
@@ -148,7 +148,7 @@ else
     mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction --default-character-set=utf8 ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
 fi
 
-echo "c5 Backup: Now zipping files..."
+echo "c5 Backup: Now compressing files into a tar file..."
 # zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${TAR_OPTION}
 tar -czpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz -C ${BASE_PATH} ${TAR_OPTION}
 
