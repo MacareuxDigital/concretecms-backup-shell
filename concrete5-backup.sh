@@ -150,7 +150,7 @@ fi
 
 echo "c5 Backup: Now zipping files..."
 # zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${TAR_OPTION}
-tar -cvzpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz ${TAR_OPTION}
+tar -czpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz -C ${BASE_PATH} ${TAR_OPTION}
 
 echo "c5 Backup: Now removing SQL dump file..."
 rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
