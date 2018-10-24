@@ -1,6 +1,6 @@
 # concrete5 backup shell:
 
-This is simple shell script to back up your concrete5.7.x site.
+This is simple shell script to back up your concrete5.7.x & concrete5 Version 8 site.
 Since you're using GitHub, I assume you know what you're doing. This is the script that runs on your server.
 
 ## MIT LICENSE and NO GUARANTEE
@@ -172,12 +172,17 @@ e.g.
 `MYSQL_PASSWORD="root"`
 
 
-## Future Plan
-
-- Support of TAR
-    - (Actually, you could uncomment line 153 and 160 and comment-out line 154 and 161, if you want tar now.) 
-
 ## Version History
+
+### 2.1.1 (October 24, 2018)
+
+- Fixed a bug which --all option stopped in the middle and leaving the tar & sql file in WHERE_IS_CONCRETE5 Path.
+- Better documentation
+
+### 2.1 (June 28, 2018)
+
+Changed compress option from zip to tar because tar is better to contain file ownership and group information.
+
 
 ### 2.0L (April 3, 2016)
 
