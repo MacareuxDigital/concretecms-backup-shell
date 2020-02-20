@@ -74,6 +74,25 @@ back up a SQL, and the files in application/ (all files), packages/
 - --package
 - -p
 
+#### CONCRETE5 MINIMUM option
+
+back up a SQL, and application (EXCEPT files), concrete, packages, updates folders and composer.*, index.php, robots.txt files. This is useful option if you want to backup all concrete5 files BUT excluding inside of file managers.
+
+This is useful option that you want to backup concrete5 files, but not the file manager files. It won't backup any other non-concrete5 files on the concrete5 document root directory such as sitemap.xml, site verification files.
+
+- --c5-min
+- --c5-minimum
+- -cm
+
+#### ALL CONCRETE5 option
+
+back up a SQL, and application, concrete, packages, updates folders and composer.*, index.php, robots.txt files.
+
+This is useful option if the concrete5 root directory contains many non-concrete5 folders. It won't backup any other non-concrete5 files on the concrete5 document root directory such as sitemap.xml, site verification files.
+
+- --all-c5
+- -c
+
 #### HELP option
 
 Shows all the help options.
@@ -174,6 +193,10 @@ e.g.
 
 ## Version History
 
+### 2.2.0 (Februrary 20, 2020)
+
+- Added CONCRETE5 MINIMUM and ALL CONCRETE5 options
+
 ### 2.1.1 (October 24, 2018)
 
 - Fixed a bug which --all option stopped in the middle and leaving the tar & sql file in WHERE_IS_CONCRETE5 Path.
@@ -182,7 +205,6 @@ e.g.
 ### 2.1 (June 28, 2018)
 
 Changed compress option from zip to tar because tar is better to contain file ownership and group information.
-
 
 ### 2.0L (April 3, 2016)
 
