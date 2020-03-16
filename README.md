@@ -1,4 +1,4 @@
-# concrete5 backup shell:
+# concrete5 backup shell libraries
 
 This is simple shell script to back up your concrete5.7.x & concrete5 Version 8 site.
 Since you're using GitHub, I assume you know what you're doing. This is the script that runs on your server.
@@ -6,6 +6,8 @@ Since you're using GitHub, I assume you know what you're doing. This is the scri
 ## MIT LICENSE and NO GUARANTEE
 
 This script is licensed under The MIT License. **USE IT AT YOUR OWN RISK.**
+
+# concrete5-backup.sh shell
 
 ## Set-up
 
@@ -190,27 +192,42 @@ If you don't want to enter the password every time, uncomment the MYSQL_PASSWORD
 e.g.
 `MYSQL_PASSWORD="root"`
 
+# concrete5-copy.sh shell
 
-## Version History
+This is the shell script and concrete5 job which copies the production concrete5 to develop environment and modify user (mainly to make users info anonymous, or delete).
 
-### 2.2.0 (Februrary 20, 2020)
+- concrete5-copy.sh
+- appliction/jobs/batch_delete_users.php
+- appliction/jobs/batch_modify_users.php
+
+Read inside of each script and modify the necessary parameters.
+concrete5 jobs are set NOT TO RUN under `production` and `default` environments make sure to adjust if it doesn't run.
+
+
+# Version History
+
+## 3.0.0 (March 16, 2020)
+
+- Added `concrete5-copy.sh` to copy production c5 to develop c5 if the both environment lives within a same server.
+
+## 2.2.0 (Februrary 20, 2020)
 
 - Added CONCRETE5 MINIMUM and ALL CONCRETE5 options
 
-### 2.1.1 (October 24, 2018)
+## 2.1.1 (October 24, 2018)
 
 - Fixed a bug which --all option stopped in the middle and leaving the tar & sql file in WHERE_IS_CONCRETE5 Path.
 - Better documentation
 
-### 2.1 (June 28, 2018)
+## 2.1 (June 28, 2018)
 
 Changed compress option from zip to tar because tar is better to contain file ownership and group information.
 
-### 2.0L (April 3, 2016)
+## 2.0L (April 3, 2016)
 
 Made the legacy version to support concrete5.6.x and before. Switch the branch to [legacy](https://github.com/katzueno/concrete5-backup-shell/tree/legacy).
 
-### 2.0 (December 28, 2015)
+## 2.0 (December 28, 2015)
 
 - `--single-transaction` option added to MySQLdump command (thanks Endo-san)
 - 2nd option of relative path or absolute path added for Mac OS user (thanks Endo-san)
@@ -218,15 +235,15 @@ Made the legacy version to support concrete5.6.x and before. Switch the branch t
 - Some script validation using [www.shellcheck.net](http://www.shellcheck.net)
 - Fix some English
 
-### 1.0.1 (December 26, 2015)
+## 1.0.1 (December 26, 2015)
 
 - Fix where the ALL option generates error because it was indicating the same zip location twice.
 
-### 1.0 (December 26, 2015)
+## 1.0 (December 26, 2015)
 
 - First version.
 
-## Contact
+# Contact
 
 http://katzueno.com/
 
