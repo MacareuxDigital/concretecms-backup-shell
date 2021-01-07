@@ -6,7 +6,7 @@ use Core;
 use Config;
 use View;
 
-class BatchModifyTestUsers extends \Concrete\Core\Job\QueueableJob
+class BatchModifyUsers extends \Concrete\Core\Job\QueueableJob
 {
     /**
      * @return mixed
