@@ -65,9 +65,14 @@ elif [ "$1" = "--database" ] || [ "$1" = "-d" ]; then
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql"
     TAR_OPTION_EXCLUDE=""
     NO_OPTION="0"
+elif [ "$1" = "--config" ] || [ "$1" = "-config" ] || [ "$1" = "-c" ]; then
+    echo "c5 Backup: You've chosen the CONFIG option. Now we're backing up the SQL generated_overrides, doctrine files and language files."
+    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
+    TAR_OPTION_EXCLUDE=""
+    NO_OPTION="0"
 elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
-    echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL and application/files."
-    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/"
+    echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL, application/files, config/generated_overrides config/doctrine files, and language files"
+    TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
     TAR_OPTION_EXCLUDE=""
     NO_OPTION="0"
 elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then

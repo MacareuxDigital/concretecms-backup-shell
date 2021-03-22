@@ -49,11 +49,18 @@ sh concrete5-backup.sh --all --relative
 
 #### FILES option (default)
 
-back up a SQL and the files in application/files (only file manager files)
+back up a SQL and the files in application/files, application/config/generated_overrides, application/config/doctrine and application/language files.
 - [no option]
 - --files
 - --file
 - -f
+
+#### Database + CONFIG option
+
+back up a SQL and the files in application/config/generated_overrides, application/config/doctrine and application/language files.
+- [no option]
+- --config
+- -c
 
 #### DATABASE option
 
@@ -205,6 +212,11 @@ concrete5 jobs are set NOT TO RUN under `production` and `default` environments 
 
 
 # Version History
+
+## 3.1.0 (March 22, 2021)
+
+- config option added to save generated_overrides, proxies and language files. Default file option also now saves those config files.
+
 
 ## 3.0.0 (March 16, 2020)
 
