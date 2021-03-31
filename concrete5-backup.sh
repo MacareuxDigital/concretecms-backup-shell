@@ -2,7 +2,7 @@
 #
 # concrete5 backup shell:
 # ----------
-# Version 2.1
+# Version 3.1.0
 # By katzueno
 
 # INSTRUCTION:
