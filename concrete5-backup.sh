@@ -87,6 +87,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     --c5-minimum OR --c5-min OR -cm: back up a SQL, application EXCEPT files, concrete, packages and root concrete5 files
     --all-c5 OR -c: back up a SQL and all concrete5 related files under WHERE_IS_CONCRETE5 path
     --all OR -a: back up a SQL and ALL files under WHERE_IS_CONCRETE5 path
+    --config OR -c: backup a SQL and generated_overrides and doctine files
     --database OR -d: back up only a SQL dump
     --packages OR --package OR -p: back up a SQL, and the files in application/, packages/
     --help OR -h: This help option.
