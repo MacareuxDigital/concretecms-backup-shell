@@ -213,10 +213,14 @@ concrete5 jobs are set NOT TO RUN under `production` and `default` environments 
 
 # Version History
 
+## 3.1.1 (May 21, 2021)
+
+- Removed `--default-character-set=utf8` parameter from mysqldump command so that if post 8.5.0 ConcreteCMS has utf8mb4 DB, it will respect the DB setting.
+- TBD: whether to add default character option or not.
+
 ## 3.1.0 (March 22, 2021)
 
 - config option added to save generated_overrides, proxies and language files. Default file option also now saves those config files.
-
 
 ## 3.0.0 (March 16, 2020)
 
