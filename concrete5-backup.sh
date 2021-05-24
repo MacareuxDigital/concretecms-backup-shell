@@ -154,7 +154,7 @@ echo "c5 Backup: Executing MySQL Dump..."
 
 if [ -n "$MYSQL_PASSWORD" ]; then
     set +e
-        mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} --password=${MYSQL_PASSWORD} --single-transaction ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+        mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} --password=${MYSQL_PASSWORD} --single-transaction --no-tablespaces ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
     ret=$?
     if [ "$ret" = 0 ]; then
         echo ""
@@ -162,12 +162,12 @@ if [ -n "$MYSQL_PASSWORD" ]; then
     else
         echo "c5 Backup: ERROR: MySQL password failed. You must type MySQL password manually. OR hit ENTER if you want to stop this script now."
         set -e
-        mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+        mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction --no-tablespaces ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
     fi
     set -e
 else
     echo "c5 Backup: Enter the MySQL password..."
-    mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+    mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction --no-tablespaces ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
 fi
 
 echo "c5 Backup: Now compressing files into a tar file..."

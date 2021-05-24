@@ -213,6 +213,10 @@ concrete5 jobs are set NOT TO RUN under `production` and `default` environments 
 
 # Version History
 
+## 3.1.2 (May 24, 2021)
+
+- Add `--no-tablespaces` parameter to mysqldump commands, so that it can prevent the error `Access denied; you need (at least one of) the PROCESS privilege(s) for this operation` since MySQL 5.7.31.
+
 ## 3.1.1 (May 21, 2021)
 
 - Removed `--default-character-set=utf8` parameter from mysqldump command so that if post 8.5.0 ConcreteCMS has utf8mb4 DB, it will respect the DB setting.

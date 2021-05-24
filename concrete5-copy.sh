@@ -47,7 +47,7 @@ echo "c5 Copy:"
 echo "===================="
 echo "c5 Copy: MySQL Copy"
 echo "===================="
-mysqldump -h ${ORIGIN_MYSQL_SERVER} -u ${ORIGIN_MYSQL_USER} --password=${ORIGIN_MYSQL_PASSWORD} --single-transaction --default-character-set=utf8 ${ORIGIN_MYSQL_NAME} | mysql -h ${TARGET_MYSQL_SERVER} -u ${TARGET_MYSQL_USER} --password=${TARGET_MYSQL_PASSWORD} ${TARGET_MYSQL_NAME}
+mysqldump -h ${ORIGIN_MYSQL_SERVER} -u ${ORIGIN_MYSQL_USER} --password=${ORIGIN_MYSQL_PASSWORD}  --single-transaction --no-tablespaces ${ORIGIN_MYSQL_NAME} | mysql -h ${TARGET_MYSQL_SERVER} -u ${TARGET_MYSQL_USER} --password=${TARGET_MYSQL_PASSWORD} ${TARGET_MYSQL_NAME}
 echo "c5 Copy: MySQL copy is done!"
 
 echo "c5 Copy:"
