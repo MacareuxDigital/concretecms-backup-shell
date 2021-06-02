@@ -118,9 +118,9 @@ if [ "$NO_OPTION" = "1" ] || [ "$NO_2nd_OPTION" = "1" ]; then
 fi
 
 # ---- tablespace option after MySQL 5.7.31
-if [ "$MYSQL_IF_NO_TABLESPACE" = "YES" ||"$MYSQL_IF_NO_TABLESPACE" = "Yes" || "$MYSQL_IF_NO_TABLESPACE" = "yes" || "$MYSQL_IF_NO_TABLESPACE" = "y"]; then
-    MYSQLDUMP_OPTION_TABLESPACE="--no-tablespaces "
-elif [ "$MYSQL_IF_NO_TABLESPACE" = "NO" ||"$MYSQL_IF_NO_TABLESPACE" = "No" || "$MYSQL_IF_NO_TABLESPACE" = "no" || "$MYSQL_IF_NO_TABLESPACE" = "n"]; then
+if [ "$MYSQL_IF_NO_TABLESPACE" = "YES" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "Yes" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "yes" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "y" ]; then
+    MYSQLDUMP_OPTION_TABLESPACE="--no-tablespaces"
+elif [ "$MYSQL_IF_NO_TABLESPACE" = "NO" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "No" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "no" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "n" ]; then
     MYSQLDUMP_OPTION_TABLESPACE=""
 else
     echo "c5 Backup ERROR: MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"

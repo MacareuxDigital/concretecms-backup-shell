@@ -40,9 +40,9 @@ TARGET_C5_JOB_NAME="batch_modify_test_users"
 # ==============================
 
 # ---- tablespace option after MySQL 5.7.31
-if [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "YES" ||"$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "Yes" || "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "yes" || "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "y"]; then
+if [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "YES" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "Yes" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "yes" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "y" ]; then
     MYSQLDUMP_OPTION_TABLESPACE="--no-tablespaces"
-elif [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "NO" ||"$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "No" || "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "no" || "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "n"]; then
+elif [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "NO" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "No" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "no" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "n" ]; then
     MYSQLDUMP_OPTION_TABLESPACE=""
 else
     echo "c5 Backup ERROR: ORIGIN_MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"
