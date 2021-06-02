@@ -199,6 +199,30 @@ If you don't want to enter the password every time, uncomment the MYSQL_PASSWORD
 e.g.
 `MYSQL_PASSWORD="root"`
 
+### MYSQL_CHARASET
+
+You must set what character default-character encoding when exporting the dump.
+
+- `utf8mb4` is recommended if you want emoji support.
+- `utf8` is recommended if you are still using older server without emoji support.
+
+e.g.
+`MYSQL_CHARASET="utf8mb4"`
+
+### MYSQL_IF_NO_TABLESPACE
+
+If you are using MySQL 5.7.31 or later, and you encounter the following error, you must set it to `yes` 
+
+```
+mysqldump: Error: 'Access denied; you need (at least one of) the PROCESS privilege(s) for this operation' when trying to dump tablespaces
+```
+
+If you are using earlier version of MySQL or MariaDB, please set it "no"
+
+e.g.
+`MYSQL_IF_NO_TABLESPACE="yes"`
+
+
 # concrete5-copy.sh shell
 
 This is the shell script and concrete5 job which copies the production concrete5 to develop environment and modify user (mainly to make users info anonymous, or delete).
@@ -212,6 +236,12 @@ concrete5 jobs are set NOT TO RUN under `production` and `default` environments 
 
 
 # Version History
+
+## 3.2.0 (June 2, 2021)
+
+- Add `MYSQL_CHARASET` config parameter to be able to set your default character encoding of mysqldump
+- Add `MYSQL_IF_NO_TABLESPACE` config to make the shell configurable
+- Better Readme documentation
 
 ## 3.1.2 (May 24, 2021)
 
