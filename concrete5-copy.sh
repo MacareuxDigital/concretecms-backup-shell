@@ -45,7 +45,7 @@ if [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "YES" ||"$ORIGIN_MYSQL_IF_NO_TABLESPACE"
 elif [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "NO" ||"$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "No" || "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "no" || "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "n"]; then
     MYSQLDUMP_OPTION_TABLESPACE=""
 else
-    echo "c5 Backup ERROR: MYSQL_IFTABLESPACE variable is not properly set in the shell script"
+    echo "c5 Backup ERROR: ORIGIN_MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"
     exit
 fi
 
