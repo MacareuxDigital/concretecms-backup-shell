@@ -2,7 +2,7 @@
 #
 # concrete5 backup shell:
 # ----------
-# Version 3.1.1
+# Version 3.2.0
 # By katzueno
 
 # INSTRUCTION:
@@ -22,7 +22,12 @@ FILE_NAME="katzueno"
 MYSQL_SERVER="localhost"
 MYSQL_NAME="database"
 MYSQL_USER="root"
+# Remove comment out & enter password if you want to avoid entering mysql password
 # MYSQL_PASSWORD="pass"
+# Make sure to set the proper MySQL character encoding to avoid character corruption
+MYSQL_CHARASET="utf8mb4"
+# Set "yes" if you're using MySQL 5.7.31 or later.
+MYSQL_IF_NO_TABLESPACE="no"
 
 # ==============================
 #
@@ -108,34 +113,44 @@ else
 fi
 
 if [ "$NO_OPTION" = "1" ] || [ "$NO_2nd_OPTION" = "1" ]; then
-    echo "c5 Backup ERROR: You specified WRONG OPTION. Please try 'sh backup.sh -h' for the available options."
+    echo "c5 Backup ERROR: You specified WRONG OPTION. Please try 'sh concrete5-backup.sh -h' for the available options."
+    exit
+fi
+
+# ---- tablespace option after MySQL 5.7.31
+if [ "$MYSQL_IF_NO_TABLESPACE" = "YES" ||"$MYSQL_IF_NO_TABLESPACE" = "Yes" || "$MYSQL_IF_NO_TABLESPACE" = "yes" || "$MYSQL_IF_NO_TABLESPACE" = "y"]; then
+    MYSQLDUMP_OPTION_TABLESPACE="--no-tablespaces "
+elif [ "$MYSQL_IF_NO_TABLESPACE" = "NO" ||"$MYSQL_IF_NO_TABLESPACE" = "No" || "$MYSQL_IF_NO_TABLESPACE" = "no" || "$MYSQL_IF_NO_TABLESPACE" = "n"]; then
+    MYSQLDUMP_OPTION_TABLESPACE=""
+else
+    echo "c5 Backup ERROR: MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"
     exit
 fi
 
 # ---- Checking Variable -----
 echo "c5 Backup: Checking variables..."
 if [ -z "$WHERE_TO_SAVE" ] || [ "$WHERE_TO_SAVE" = " " ]; then
-    echo "c5 Backup ERROR: WHERE_TO_SAVE variable is not set"
+    echo "c5 Backup ERROR: WHERE_TO_SAVE variable is not set in the shell script"
     exit
 fi
 if [ -z "$WHERE_IS_CONCRETE5" ] || [ "$WHERE_IS_CONCRETE5" = " " ]; then
-    echo "c5 Backup ERROR: WHERE_IS_CONCRETE5 variable is not set"
+    echo "c5 Backup ERROR: WHERE_IS_CONCRETE5 variable is not set in the shell script"
     exit
 fi
 if [ -z "$NOW_TIME" ] || [ "$NOW_TIME" = " " ]; then
-    echo "c5 Backup ERROR: NOW_TIME variable is not set"
+    echo "c5 Backup ERROR: NOW_TIME variable is not set in the shell script"
     exit
 fi
 if [ -z "$MYSQL_SERVER" ] || [ "$MYSQL_SERVER" = " " ]; then
-    echo "c5 Backup ERROR: MYSQL_SERVER variable is not set"
+    echo "c5 Backup ERROR: MYSQL_SERVER variable is not set in the shell script"
     exit
 fi
 if [ -z "$MYSQL_USER" ] || [ "$MYSQL_USER" = " " ]; then
-    echo "c5 Backup ERROR: MYSQL_USER variable is not set"
+    echo "c5 Backup ERROR: MYSQL_USER variable is not set in the shell script"
     exit
 fi
 if [ -z "$MYSQL_NAME" ] || [ "$MYSQL_NAME" = " " ]; then
-    echo "c5 Backup ERROR: MYSQL_NAME variable is not set"
+    echo "c5 Backup ERROR: MYSQL_NAME variable is not set in the shell script"
     exit
 fi
 
@@ -154,7 +169,7 @@ echo "c5 Backup: Executing MySQL Dump..."
 
 if [ -n "$MYSQL_PASSWORD" ]; then
     set +e
-        mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} --password=${MYSQL_PASSWORD} --single-transaction --no-tablespaces ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+        mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} --password=${MYSQL_PASSWORD} --single-transaction --default-character-set=${MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
     ret=$?
     if [ "$ret" = 0 ]; then
         echo ""
@@ -162,12 +177,12 @@ if [ -n "$MYSQL_PASSWORD" ]; then
     else
         echo "c5 Backup: ERROR: MySQL password failed. You must type MySQL password manually. OR hit ENTER if you want to stop this script now."
         set -e
-        mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction --no-tablespaces ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+        mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction --default-character-set=${MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
     fi
     set -e
 else
     echo "c5 Backup: Enter the MySQL password..."
-    mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction --no-tablespaces ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+    mysqldump -h ${MYSQL_SERVER} -u ${MYSQL_USER} -p --single-transaction --default-character-set=${MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
 fi
 
 echo "c5 Backup: Now compressing files into a tar file..."
