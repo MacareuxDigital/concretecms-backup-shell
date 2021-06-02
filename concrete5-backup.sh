@@ -26,8 +26,8 @@ MYSQL_USER="root"
 # MYSQL_PASSWORD="pass"
 # Make sure to set the proper MySQL character encoding to avoid character corruption
 MYSQL_CHARASET="utf8mb4"
-# Set "yes" if you're using MySQL 5.7.31 or later.
-MYSQL_IF_NO_TABLESPACE="no"
+# Set "true" if you're using MySQL 5.7.31 or later. (true or false)
+MYSQL_IF_NO_TABLESPACE="false"
 
 # ==============================
 #
@@ -118,9 +118,9 @@ if [ "$NO_OPTION" = "1" ] || [ "$NO_2nd_OPTION" = "1" ]; then
 fi
 
 # ---- tablespace option after MySQL 5.7.31
-if [ "$MYSQL_IF_NO_TABLESPACE" = "YES" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "Yes" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "yes" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "y" ]; then
+if [ "$MYSQL_IF_NO_TABLESPACE" = "TRUE" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "True" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "true" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "t" ]; then
     MYSQLDUMP_OPTION_TABLESPACE="--no-tablespaces"
-elif [ "$MYSQL_IF_NO_TABLESPACE" = "NO" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "No" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "no" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "n" ]; then
+elif [ "$MYSQL_IF_NO_TABLESPACE" = "FALSE" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "False" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "false" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "f" ]; then
     MYSQLDUMP_OPTION_TABLESPACE=""
 else
     echo "c5 Backup ERROR: MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"

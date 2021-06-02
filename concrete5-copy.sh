@@ -24,8 +24,8 @@ ORIGIN_MYSQL_USER="db_user"
 ORIGIN_MYSQL_PASSWORD="password"
 # Make sure to set the proper MySQL character encoding to avoid character corruption
 ORIGIN_MYSQL_CHARASET="utf8mb4"
-# Set "yes" if you're using MySQL 5.7.31 or later
-ORIGIN_MYSQL_IF_NO_TABLESPACE="no"
+# Set "true" if you're using MySQL 5.7.31 or later
+ORIGIN_MYSQL_IF_NO_TABLESPACE="false"
 TARGET_MYSQL_SERVER="localhost"
 TARGET_MYSQL_NAME="db_develop"
 TARGET_MYSQL_USER="db_user"
@@ -40,9 +40,9 @@ TARGET_C5_JOB_NAME="batch_modify_test_users"
 # ==============================
 
 # ---- tablespace option after MySQL 5.7.31
-if [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "YES" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "Yes" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "yes" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "y" ]; then
+if [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "TRUE" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "True" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "true" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "t" ]; then
     MYSQLDUMP_OPTION_TABLESPACE="--no-tablespaces"
-elif [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "NO" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "No" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "no" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "n" ]; then
+elif [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "FALSE" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "False" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "false" ] || [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "f" ]; then
     MYSQLDUMP_OPTION_TABLESPACE=""
 else
     echo "c5 Backup ERROR: ORIGIN_MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"

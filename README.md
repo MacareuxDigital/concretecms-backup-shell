@@ -199,7 +199,7 @@ If you don't want to enter the password every time, uncomment the MYSQL_PASSWORD
 e.g.
 `MYSQL_PASSWORD="root"`
 
-### MYSQL_CHARASET
+### MYSQL_CHARASET (charaset)
 
 You must set what character default-character encoding when exporting the dump.
 
@@ -209,18 +209,21 @@ You must set what character default-character encoding when exporting the dump.
 e.g.
 `MYSQL_CHARASET="utf8mb4"`
 
-### MYSQL_IF_NO_TABLESPACE
+### MYSQL_IF_NO_TABLESPACE (true or false)
 
-If you are using MySQL 5.7.31 or later, and you encounter the following error, you must set it to `yes` 
+If you are using MySQL 5.7.31 or later, and you encounter the following error, you must set it to `true` 
 
 ```
 mysqldump: Error: 'Access denied; you need (at least one of) the PROCESS privilege(s) for this operation' when trying to dump tablespaces
 ```
 
-If you are using earlier version of MySQL or MariaDB, please set it "no"
+e.g.
+`MYSQL_IF_NO_TABLESPACE="true"`
+
+If you are using earlier version of MySQL or MariaDB, please set it `false`
 
 e.g.
-`MYSQL_IF_NO_TABLESPACE="yes"`
+`MYSQL_IF_NO_TABLESPACE="false"`
 
 
 # concrete5-copy.sh shell
