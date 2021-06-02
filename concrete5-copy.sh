@@ -22,6 +22,10 @@ ORIGIN_MYSQL_SERVER="localhost"
 ORIGIN_MYSQL_NAME="db_production"
 ORIGIN_MYSQL_USER="db_user"
 ORIGIN_MYSQL_PASSWORD="password"
+# Make sure to set the proper MySQL character encoding to avoid character corruption
+ORIGIN_MYSQL_CHARASET="utf8mb4"
+# Set "yes" if you're using MySQL 5.7.31 or later
+ORIGIN_MYSQL_IFTABLESPACE="no"
 TARGET_MYSQL_SERVER="localhost"
 TARGET_MYSQL_NAME="db_develop"
 TARGET_MYSQL_USER="db_user"
@@ -35,6 +39,16 @@ TARGET_C5_JOB_NAME="batch_modify_test_users"
 #
 # ==============================
 
+# ---- tablespace option after MySQL 5.7.31
+if [ "$ORIGIN_MYSQL_IFTABLESPACE" = "YES" ||"$ORIGIN_MYSQL_IFTABLESPACE" = "Yes" || "$ORIGIN_MYSQL_IFTABLESPACE" = "yes" || "$ORIGIN_MYSQL_IFTABLESPACE" = "y"]; then
+    MYSQLDUMP_OPTION_TABLESPACE="--no-tablespaces"
+elif [ "$ORIGIN_MYSQL_IFTABLESPACE" = "NO" ||"$ORIGIN_MYSQL_IFTABLESPACE" = "No" || "$ORIGIN_MYSQL_IFTABLESPACE" = "no" || "$ORIGIN_MYSQL_IFTABLESPACE" = "n"]; then
+    MYSQLDUMP_OPTION_TABLESPACE=""
+else
+    echo "c5 Backup ERROR: MYSQL_IFTABLESPACE variable is not properly set in the shell script"
+    exit
+fi
+
 # ---- Starting shell -----
 echo "===================="
 echo "c5 Copy: USE IT AT YOUR OWN RISK!"
@@ -47,7 +61,7 @@ echo "c5 Copy:"
 echo "===================="
 echo "c5 Copy: MySQL Copy"
 echo "===================="
-mysqldump -h ${ORIGIN_MYSQL_SERVER} -u ${ORIGIN_MYSQL_USER} --password=${ORIGIN_MYSQL_PASSWORD}  --single-transaction --no-tablespaces ${ORIGIN_MYSQL_NAME} | mysql -h ${TARGET_MYSQL_SERVER} -u ${TARGET_MYSQL_USER} --password=${TARGET_MYSQL_PASSWORD} ${TARGET_MYSQL_NAME}
+mysqldump -h ${ORIGIN_MYSQL_SERVER} -u ${ORIGIN_MYSQL_USER} --password=${ORIGIN_MYSQL_PASSWORD}  --single-transaction --default-character-set=${ORIGIN_MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${ORIGIN_MYSQL_NAME} | mysql -h ${TARGET_MYSQL_SERVER} -u ${TARGET_MYSQL_USER} --password=${TARGET_MYSQL_PASSWORD} ${TARGET_MYSQL_NAME}
 echo "c5 Copy: MySQL copy is done!"
 
 echo "c5 Copy:"
