@@ -225,6 +225,15 @@ If you are using earlier version of MySQL or MariaDB, please set it `false`
 e.g.
 `MYSQL_IF_NO_TABLESPACE="false"`
 
+### MYSQL_PORT (port number)
+
+You must set the port number of MySQL server
+
+- Set `3306` as default port number
+
+e.g.
+`MYSQL_PORT="3306"`
+
 
 # concrete5-copy.sh shell
 
@@ -239,6 +248,10 @@ concrete5 jobs are set NOT TO RUN under `production` and `default` environments 
 
 
 # Version History
+
+## 3.3.0 (Aug 9, 2021)
+
+- Add `MYSQL_PORT` config parameter to be able to set mysql port number of mysqldump
 
 ## 3.2.0 (June 2, 2021)
 
