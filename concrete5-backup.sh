@@ -2,7 +2,7 @@
 #
 # concrete5 backup shell:
 # ----------
-# Version 3.3.0
+# Version 3.3.1
 # By katzueno
 
 # INSTRUCTION:
@@ -189,7 +189,7 @@ fi
 
 echo "c5 Backup: Now compressing files into a tar file..."
 # zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${TAR_OPTION}
-tar ${TAR_OPTION_EXCLUDE} -czpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz -C ${BASE_PATH} ${TAR_OPTION}
+tar ${TAR_OPTION_EXCLUDE} -chzpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz -C ${BASE_PATH} ${TAR_OPTION}
 
 echo "c5 Backup: Now removing SQL dump file..."
 rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql

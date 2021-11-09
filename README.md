@@ -249,6 +249,10 @@ concrete5 jobs are set NOT TO RUN under `production` and `default` environments 
 
 # Version History
 
+## 3.3.1 (Nov 9, 2021)
+
+- Added -h option to tar command so that it can compress files under symbolic links
+
 ## 3.3.0 (Aug 9, 2021)
 
 - Add `MYSQL_PORT` config parameter to be able to set mysql port number of mysqldump
