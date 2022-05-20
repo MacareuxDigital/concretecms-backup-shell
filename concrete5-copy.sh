@@ -2,7 +2,7 @@
 #
 # concrete5 Dev Copy:
 # ----------
-# Version 3.2.0
+# Version 3.2.1
 # By katzueno
 
 # INSTRUCTION:
@@ -73,6 +73,17 @@ echo "c5 Copy: Remove application files at the destination: ${WHERE_TO_COPY}/app
 # rm -r ${WHERE_TO_COPY}/application/files/*
 echo "c5 Copy: Copying application files from ${WHERE_TO_GET}/* to ${WHERE_TO_COPY}/"
 cp -r ${WHERE_TO_GET}/* ${WHERE_TO_COPY}/
+
+echo "c5 Copy:"
+echo "c5 Copy:"
+echo "===================="
+echo "c5 Copy: Change Database Name"
+echo "===================="
+echo "**START** Replace database.php info to target database"
+sed -i "s/'server' => '${ORIGIN_MYSQL_SERVER}',/'server' => '${ORIGIN_MYSQL_SERVER}',/g" ${WHERE_TO_COPY}/application/config/database.php
+sed -i "s/'database' => '${ORIGIN_MYSQL_NAME}',/'database' => '${TARGET_MYSQL_NAME}',/g" ${WHERE_TO_COPY}/application/config/database.php
+sed -i "s/'username' => '${ORIGIN_MYSQL_USER}',/'username' => '${TARGET_MYSQL_USER}',/g" ${WHERE_TO_COPY}/application/config/database.php
+sed -i "s/'password' => '${ORIGIN_MYSQL_PASSWORD}',/'password' => '${TARGET_MYSQL_PASSWORD}',/g" ${WHERE_TO_COPY}/application/config/database.php
 
 echo "c5 Copy:"
 echo "c5 Copy:"
