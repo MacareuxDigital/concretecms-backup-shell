@@ -13,23 +13,12 @@
 
 set -e
 
-# VARIABLES
-# ----------
-NOW_TIME=$(date "+%Y%m%d%H%M%S")
-WHERE_TO_SAVE="/var/www/html/backup"
-WHERE_IS_CONCRETE5="/var/www/html/www"
-FILE_NAME="katzueno"
-MYSQL_SERVER="localhost"
-MYSQL_NAME="database"
-MYSQL_USER="root"
-# Remove comment out & enter password if you want to avoid entering mysql password
-# MYSQL_PASSWORD="pass"
-# Make sure to set the proper MySQL character encoding to avoid character corruption
-MYSQL_CHARASET="utf8mb4"
-# Set "true" if you're using MySQL 5.7.31 or later. (true or false)
-MYSQL_IF_NO_TABLESPACE="false"
-# MySQL Port Number
-MYSQL_PORT="3306"
+#-----------------------------------------------------------
+# 定数・変数の取り込み
+# Parameter_backup.confは、concrete5-backup.shと同じディレクトリに格納してください
+#-----------------------------------------------------------
+
+source ./Parameter_backup.conf
 
 # ==============================
 #
