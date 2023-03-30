@@ -1,29 +1,29 @@
-# concrete5 backup shell libraries
+# concreteCMS backup shell libraries
 
-This is simple shell script to back up your concrete5.7.x & concrete5 Version 8 site.
+This is simple shell script to back up your concreteCMS 7.x & concreteCMS Version 8 site.
 Since you're using GitHub, I assume you know what you're doing. This is the script that runs on your server.
 
 ## MIT LICENSE and NO GUARANTEE
 
 This script is licensed under The MIT License. **USE IT AT YOUR OWN RISK.**
 
-# concrete5-backup.sh shell
+# concretecms-backup.sh shell
 
 ## Set-up
 
 You need to have the server that allows to run the shell script.
 
-1. Add your server config in `concrete5-backup.sh`
+1. Add your server config in `concretecms-backup.conf`
 1. If you don't uncomment MYSQL_PASSWORD option, you will have to enter MySQL Password every time you run this script.
-1. Upload the `concrete5-backup.sh` to your server
-1. Change the file permission `chmod 700 concrete5-backup.sh` Or whatever the permission you need to execute the file. But make sure to minimize the permission.
+1. Upload the `concretecms-backup.sh` `concretecms-backup.conf`to your server
+1. Change the file permission `chmod 700 concretecms-backup.sh` Or whatever the permission you need to execute the file. But make sure to minimize the permission.
 1. Run the sh file from ssh or set-up CRON job.
 
 It's is highly advised that you know what you're doing with this script. You MUST have certain amount of knowledge of what shell script is.
 
-## CAUTION: Check your concrete5 folder.
+## CAUTION: Check your concreteCMS folder.
 
-This script first save the SQL dump file onto concrete5 directory. If the script fails, it may leave the SQL file under the server. MAKE SURE to check the server occasionally.
+This script first save the SQL dump file onto concreteCMS directory. If the script fails, it may leave the SQL file under the server. MAKE SURE to check the server occasionally.
 
 ## How to Run and Options
 
@@ -33,14 +33,14 @@ At default, you still need to enter the MySQL Password.
 
 ```
 cd path/to/shell/file
-sh concrete5-backup.sh [1st option] [2nd option]
+sh oncretecms-backup.sh [1st option] [2nd option]
 ```
 
 ### Example
 
 ```
 cd /var/www/html
-sh concrete5-backup.sh --all --relative
+sh oncretecms-backup.sh --all --relative
 ```
 
 ### 1st Option
@@ -64,14 +64,14 @@ back up a SQL and the files in application/config/generated_overrides, applicati
 
 #### DATABASE option
 
-back up only a SQL dump file under WHERE_IS_CONCRETE5 path
+back up only a SQL dump file under WHERE_IS_concrete5 path
 
 - --database
 - -d
 
 #### ALL file option
 
-back up a SQL and all files under WHERE_IS_CONCRETE5 path
+back up a SQL and all files under WHERE_IS_concrete5 path
 - --all
 - -a
 
@@ -83,21 +83,21 @@ back up a SQL, and the files in application/ (all files), packages/
 - --package
 - -p
 
-#### CONCRETE5 MINIMUM option
+#### CONCRETECMS MINIMUM option
 
-back up a SQL, and application (EXCEPT files), concrete, packages, updates folders and composer.*, index.php, robots.txt files. This is useful option if you want to backup all concrete5 files BUT excluding inside of file managers.
+back up a SQL, and application (EXCEPT files), concrete, packages, updates folders and composer.*, index.php, robots.txt files. This is useful option if you want to backup all concreteCMS files BUT excluding inside of file managers.
 
-This is useful option that you want to backup concrete5 files, but not the file manager files. It won't backup any other non-concrete5 files on the concrete5 document root directory such as sitemap.xml, site verification files.
+This is useful option that you want to backup concreteCMS files, but not the file manager files. It won't backup any other non-concreteCMS files on the concreteCMS document root directory such as sitemap.xml, site verification files.
 
 - --c5-min
 - --c5-minimum
 - -cm
 
-#### ALL CONCRETE5 option
+#### ALL concreteCMS option
 
 back up a SQL, and application, concrete, packages, updates folders and composer.*, index.php, robots.txt files.
 
-This is useful option if the concrete5 root directory contains many non-concrete5 folders. It won't backup any other non-concrete5 files on the concrete5 document root directory such as sitemap.xml, site verification files.
+This is useful option if the concreteCMS root directory contains many non-concreteCMS folders. It won't backup any other non-concreteCMS files on the concreteCMS document root directory such as sitemap.xml, site verification files.
 
 - --all-c5
 - -c
@@ -134,7 +134,7 @@ The shell always use absolute path when dumping and zipping files.
 
 ## VARIABLES TO SET
 
-Once you download the sh file, you must change the where VARIABLES is from line 15
+After downloading the conf file, you must change the VARIABLES.
 
 ### NOW_TIME
 
@@ -154,12 +154,12 @@ e.g.
 
 HINT: If you don't know where to find, use "pwd" command to find your current location of the server to find the full path of the server.
 
-### WHERE_IS_CONCRETE5
+### WHERE_IS_concrete5
 
-Enter the full server path of where your concrete5 site is installed
+Enter the full server path of where your concreteCMS site is installed
 
 e.g.
-`WHERE_IS_CONCRETE5="/var/www/html/concrete5"`
+`WHERE_IS_concrete5="/var/www/html/concreteCMS"`
 
 
 
@@ -201,7 +201,7 @@ e.g.
 
 ### MYSQL_CHARASET (charaset)
 
-You must set what character default-character encoding when exporting the dump.
+You must set what default-character encoding when exporting the dump.
 
 - `utf8mb4` is recommended if you want emoji support.
 - `utf8` is recommended if you are still using older server without emoji support.
@@ -237,17 +237,22 @@ e.g.
 
 # concrete5-copy.sh shell
 
-This is the shell script and concrete5 job which copies the production concrete5 to develop environment and modify user (mainly to make users info anonymous, or delete).
+This is the shell script and concreteCMS job which copies the production concreteCMS to develop environment and modify user (mainly to make users info anonymous, or delete).
 
 - concrete5-copy.sh
 - appliction/jobs/batch_delete_users.php
 - appliction/jobs/batch_modify_users.php
 
 Read inside of each script and modify the necessary parameters.
-concrete5 jobs are set NOT TO RUN under `production` and `default` environments make sure to adjust if it doesn't run.
+concreteCMS jobs are set NOT TO RUN under `production` and `default` environments make sure to adjust if it doesn't run.
 
 
 # Version History
+
+## 4.0.0 (Mar 30, 2023)
+
+- Separate the variable items from the shell scripts and put them in the conf file.
+- Rename shell script file.
 
 ## 3.3.1 (Nov 9, 2021)
 
@@ -278,15 +283,15 @@ concrete5 jobs are set NOT TO RUN under `production` and `default` environments 
 
 ## 3.0.0 (March 16, 2020)
 
-- Added `concrete5-copy.sh` to copy production c5 to develop c5 if the both environment lives within a same server.
+- Added `concreteCMS-copy.sh` to copy production c5 to develop c5 if the both environment lives within a same server.
 
 ## 2.2.0 (Februrary 20, 2020)
 
-- Added CONCRETE5 MINIMUM and ALL CONCRETE5 options
+- Added concreteCMS MINIMUM and ALL concreteCMS options
 
 ## 2.1.1 (October 24, 2018)
 
-- Fixed a bug which --all option stopped in the middle and leaving the tar & sql file in WHERE_IS_CONCRETE5 Path.
+- Fixed a bug which --all option stopped in the middle and leaving the tar & sql file in WHERE_IS_concrete5 Path.
 - Better documentation
 
 ## 2.1 (June 28, 2018)
@@ -295,7 +300,7 @@ Changed compress option from zip to tar because tar is better to contain file ow
 
 ## 2.0L (April 3, 2016)
 
-Made the legacy version to support concrete5.6.x and before. Switch the branch to [legacy](https://github.com/katzueno/concrete5-backup-shell/tree/legacy).
+Made the legacy version to support concreteCMS.6.x and before. Switch the branch to [legacy](https://github.com/katzueno/concreteCMS-backup-shell/tree/legacy).
 
 ## 2.0 (December 28, 2015)
 
