@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# concrete5 backup shell:
+# concretecms backup shell:
 # ----------
-# Version 3.3.1
+# Version 4.0.0
 # By katzueno
 
 # INSTRUCTION:
@@ -15,10 +15,10 @@ set -e
 
 #-----------------------------------------------------------
 # 定数・変数の取り込み
-# Parameter_backup.confは、concrete5-backup.shと同じディレクトリに格納してください
+# concretecms-backup.confは、concretecms-backup.shと同じディレクトリに格納してください
 #-----------------------------------------------------------
 
-source ./Parameter_backup.conf
+source ./concretecms-backup.conf
 
 # ==============================
 #
