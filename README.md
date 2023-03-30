@@ -64,14 +64,14 @@ back up a SQL and the files in application/config/generated_overrides, applicati
 
 #### DATABASE option
 
-back up only a SQL dump file under WHERE_IS_concrete5 path
+back up only a SQL dump file under WHERE_IS_CONCRETE5 path
 
 - --database
 - -d
 
 #### ALL file option
 
-back up a SQL and all files under WHERE_IS_concrete5 path
+back up a SQL and all files under WHERE_IS_CONCRETE5 path
 - --all
 - -a
 
@@ -159,7 +159,7 @@ HINT: If you don't know where to find, use "pwd" command to find your current lo
 Enter the full server path of where your concreteCMS site is installed
 
 e.g.
-`WHERE_IS_concrete5="/var/www/html/concreteCMS"`
+`WHERE_IS_CONCRETE5="/var/www/html/concrete5"`
 
 
 
@@ -291,7 +291,7 @@ concreteCMS jobs are set NOT TO RUN under `production` and `default` environment
 
 ## 2.1.1 (October 24, 2018)
 
-- Fixed a bug which --all option stopped in the middle and leaving the tar & sql file in WHERE_IS_concrete5 Path.
+- Fixed a bug which --all option stopped in the middle and leaving the tar & sql file in WHERE_IS_CONCRETE5 Path.
 - Better documentation
 
 ## 2.1 (June 28, 2018)
