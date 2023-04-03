@@ -1,6 +1,6 @@
-# concreteCMS backup shell libraries
+# Concrete CMS backup shell libraries
 
-This is simple shell script to back up your concreteCMS 7.x & concreteCMS Version 8 site.
+This is simple shell script to back up your Concrete CMS 7.x & Concrete CMS Version 8 site.
 Since you're using GitHub, I assume you know what you're doing. This is the script that runs on your server.
 
 ## MIT LICENSE and NO GUARANTEE
@@ -21,9 +21,9 @@ You need to have the server that allows to run the shell script.
 
 It's is highly advised that you know what you're doing with this script. You MUST have certain amount of knowledge of what shell script is.
 
-## CAUTION: Check your concreteCMS folder.
+## CAUTION: Check your Concrete CMS folder.
 
-This script first save the SQL dump file onto concreteCMS directory. If the script fails, it may leave the SQL file under the server. MAKE SURE to check the server occasionally.
+This script first save the SQL dump file onto Concrete CMS directory. If the script fails, it may leave the SQL file under the server. MAKE SURE to check the server occasionally.
 
 ## How to Run and Options
 
@@ -85,19 +85,19 @@ back up a SQL, and the files in application/ (all files), packages/
 
 #### CONCRETECMS MINIMUM option
 
-back up a SQL, and application (EXCEPT files), concrete, packages, updates folders and composer.*, index.php, robots.txt files. This is useful option if you want to backup all concreteCMS files BUT excluding inside of file managers.
+back up a SQL, and application (EXCEPT files), concrete, packages, updates folders and composer.*, index.php, robots.txt files. This is useful option if you want to backup all Concrete CMS files BUT excluding inside of file managers.
 
-This is useful option that you want to backup concreteCMS files, but not the file manager files. It won't backup any other non-concreteCMS files on the concreteCMS document root directory such as sitemap.xml, site verification files.
+This is useful option that you want to backup Concrete CMS files, but not the file manager files. It won't backup any other non-Concrete CMS files on the Concrete CMS document root directory such as sitemap.xml, site verification files.
 
 - --c5-min
 - --c5-minimum
 - -cm
 
-#### ALL concreteCMS option
+#### ALL CONCRETECMS option
 
 back up a SQL, and application, concrete, packages, updates folders and composer.*, index.php, robots.txt files.
 
-This is useful option if the concreteCMS root directory contains many non-concreteCMS folders. It won't backup any other non-concreteCMS files on the concreteCMS document root directory such as sitemap.xml, site verification files.
+This is useful option if the Concrete CMS root directory contains many non-Concrete CMS folders. It won't backup any other non-Concrete CMS files on the Concrete CMS document root directory such as sitemap.xml, site verification files.
 
 - --all-c5
 - -c
@@ -154,9 +154,9 @@ e.g.
 
 HINT: If you don't know where to find, use "pwd" command to find your current location of the server to find the full path of the server.
 
-### WHERE_IS_concrete5
+### WHERE_IS_CONCRETE5
 
-Enter the full server path of where your concreteCMS site is installed
+Enter the full server path of where your Concrete CMS site is installed
 
 e.g.
 `WHERE_IS_CONCRETE5="/var/www/html/concrete5"`
@@ -237,14 +237,14 @@ e.g.
 
 # concrete5-copy.sh shell
 
-This is the shell script and concreteCMS job which copies the production concreteCMS to develop environment and modify user (mainly to make users info anonymous, or delete).
+This is the shell script and Concrete CMS job which copies the production Concrete CMS to develop environment and modify user (mainly to make users info anonymous, or delete).
 
 - concrete5-copy.sh
 - appliction/jobs/batch_delete_users.php
 - appliction/jobs/batch_modify_users.php
 
 Read inside of each script and modify the necessary parameters.
-concreteCMS jobs are set NOT TO RUN under `production` and `default` environments make sure to adjust if it doesn't run.
+Concrete CMS jobs are set NOT TO RUN under `production` and `default` environments make sure to adjust if it doesn't run.
 
 
 # Version History
@@ -274,7 +274,7 @@ concreteCMS jobs are set NOT TO RUN under `production` and `default` environment
 
 ## 3.1.1 (May 21, 2021)
 
-- Removed `--default-character-set=utf8` parameter from mysqldump command so that if post 8.5.0 ConcreteCMS has utf8mb4 DB, it will respect the DB setting.
+- Removed `--default-character-set=utf8` parameter from mysqldump command so that if post 8.5.0 Concrete CMS has utf8mb4 DB, it will respect the DB setting.
 - TBD: whether to add default character option or not.
 
 ## 3.1.0 (March 22, 2021)
@@ -283,11 +283,11 @@ concreteCMS jobs are set NOT TO RUN under `production` and `default` environment
 
 ## 3.0.0 (March 16, 2020)
 
-- Added `concreteCMS-copy.sh` to copy production c5 to develop c5 if the both environment lives within a same server.
+- Added `concrete5-copy.sh` to copy production c5 to develop c5 if the both environment lives within a same server.
 
 ## 2.2.0 (Februrary 20, 2020)
 
-- Added concreteCMS MINIMUM and ALL concreteCMS options
+- Added Concrete CMS MINIMUM and ALL Concrete CMS options
 
 ## 2.1.1 (October 24, 2018)
 
@@ -300,7 +300,7 @@ Changed compress option from zip to tar because tar is better to contain file ow
 
 ## 2.0L (April 3, 2016)
 
-Made the legacy version to support concreteCMS.6.x and before. Switch the branch to [legacy](https://github.com/katzueno/concreteCMS-backup-shell/tree/legacy).
+Made the legacy version to support Concrete CMS.6.x and before. Switch the branch to [legacy](https://github.com/katzueno/Concrete CMS-backup-shell/tree/legacy).
 
 ## 2.0 (December 28, 2015)
 
