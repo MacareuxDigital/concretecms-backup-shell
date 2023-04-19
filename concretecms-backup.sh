@@ -14,8 +14,8 @@
 set -e
 
 #-----------------------------------------------------------
-# 定数・変数の取り込み
-# concretecms-backup.confは、concretecms-backup.shと同じディレクトリに格納してください
+# Importing parameters
+# concretecms-backup.conf should be stored in the same directory as concretecms-backup.sh
 #-----------------------------------------------------------
 
 source ./concretecms-backup.conf
