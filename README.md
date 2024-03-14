@@ -249,6 +249,10 @@ Concrete CMS jobs are set NOT TO RUN under `production` and `default` environmen
 
 # Version History
 
+## 4.0.1 (Mar 14, 2023)
+
+- Exclude `application/files/cache` from backup
+
 ## 4.0.0 (Mar 30, 2023)
 
 - Separate the variable items from the shell scripts and put them in the conf file.
