@@ -249,6 +249,11 @@ concrete5 jobs are set NOT TO RUN under `production` and `default` environments 
 
 # Version History
 
+## 3.3.2 (Mar 14, 2024)
+
+- Exclude `application/files/cache` folder from backup
+
+
 ## 3.3.1 (Nov 9, 2021)
 
 - Added -h option to tar command so that it can compress files under symbolic links
