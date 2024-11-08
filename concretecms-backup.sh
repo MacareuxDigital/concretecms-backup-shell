@@ -2,12 +2,14 @@
 #
 # concretecms backup shell:
 # ----------
-# Version 4.0.1
-# By katzueno
+# Version 4.1.0
+# By Macareux Digital
+# https://macareux.co.jp/
+# Thanks to katzueno
 
 # INSTRUCTION:
 # ----------
-# https://github.com/katzueno/concrete5-backup-shell
+# https://github.com/MacareuxDigital/concretecms-backup-shell
 
 # USE IT AT YOUR OWN RISK!
 
@@ -81,6 +83,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     --------------------
     --files OR --file OR -f: back up a SQL and the files in application/files. This is default option.
     --c5-minimum OR --c5-min OR -cm: back up a SQL, application EXCEPT files, concrete, packages and root concrete5 files
+    --all-files OR -af: back up all files and folders except the database
     --all-c5 OR -c: back up a SQL and all concrete5 related files under WHERE_IS_CONCRETE5 path
     --all OR -a: back up a SQL and ALL files under WHERE_IS_CONCRETE5 path
     --config OR -c: backup a SQL and generated_overrides and doctine files
@@ -94,9 +97,16 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     -a OR --absolute: The script will execute using absolute path.
     
     * Second option is optional. You must specify 1st option if you want to specify 2nd option.
+
+    --------------------
+    Third Option (Optional)
+    --------------------
+    Comma-separated list of directories to exclude from the backup
+
+    * Third option is optional. You must specify 1st and 2nd options if you want to specify 3rd option.
     ====================
     
-    Have a good day! from katzueno.com
+    Have a good day!
 "
     exit
 else
@@ -156,33 +166,36 @@ echo "c5 Backup: Starting concrete5 backup..."
 echo "c5 Backup: Switching current directory to"
 echo "${WHERE_IS_CONCRETE5}"
 cd ${WHERE_IS_CONCRETE5}
-echo "c5 Backup: Executing MySQL Dump..."
 
-if [ -n "$MYSQL_PASSWORD" ]; then
-    set +e
-        mysqldump -h ${MYSQL_SERVER} --port=${MYSQL_PORT} -u ${MYSQL_USER} --password=${MYSQL_PASSWORD} --single-transaction --default-character-set=${MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
-    ret=$?
-    if [ "$ret" = 0 ]; then
-        echo ""
-        echo "c5 Backup: MySQL Database was dumped successfully."
-    else
-        echo "c5 Backup: ERROR: MySQL password failed. You must type MySQL password manually. OR hit ENTER if you want to stop this script now."
+# Execute mysqldump for all options except --all-files
+if [ "$1" != "--all-files" ] && [ "$1" != "-af" ]; then
+    echo "c5 Backup: Executing MySQL Dump..."
+    if [ -n "$MYSQL_PASSWORD" ]; then
+        set +e
+            mysqldump -h ${MYSQL_SERVER} --port=${MYSQL_PORT} -u ${MYSQL_USER} --password=${MYSQL_PASSWORD} --single-transaction --default-character-set=${MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+        ret=$?
+        if [ "$ret" = 0 ]; then
+            echo ""
+            echo "c5 Backup: MySQL Database was dumped successfully."
+        else
+            echo "c5 Backup: ERROR: MySQL password failed. You must type MySQL password manually. OR hit ENTER if you want to stop this script now."
+            set -e
+            mysqldump -h ${MYSQL_SERVER} --port=${MYSQL_PORT} -u ${MYSQL_USER} -p --single-transaction --default-character-set=${MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+        fi
         set -e
+    else
+        echo "c5 Backup: Enter the MySQL password..."
         mysqldump -h ${MYSQL_SERVER} --port=${MYSQL_PORT} -u ${MYSQL_USER} -p --single-transaction --default-character-set=${MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
     fi
-    set -e
-else
-    echo "c5 Backup: Enter the MySQL password..."
-    mysqldump -h ${MYSQL_SERVER} --port=${MYSQL_PORT} -u ${MYSQL_USER} -p --single-transaction --default-character-set=${MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${MYSQL_NAME} > ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
 fi
 
 echo "c5 Backup: Now compressing files into a tar file..."
 # zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${TAR_OPTION}
 tar ${TAR_OPTION_EXCLUDE} -chzpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz -C ${BASE_PATH} ${TAR_OPTION}
-
-echo "c5 Backup: Now removing SQL dump file..."
-rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
-
+if [ "$1" != "--all-files" ] && [ "$1" != "-af" ]; then
+    echo "c5 Backup: Now removing SQL dump file..."
+    rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
+fi
 echo "c5 Backup: Now moving the backup file(s) to the final destination..."
 echo "${WHERE_TO_SAVE}"
 # mv ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${WHERE_TO_SAVE}

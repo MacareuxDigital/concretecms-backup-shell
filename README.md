@@ -19,7 +19,7 @@ You need to have the server that allows to run the shell script.
 1. Change the file permission `chmod 700 concretecms-backup.sh` Or whatever the permission you need to execute the file. But make sure to minimize the permission.
 1. Run the sh file from ssh or set-up CRON job.
 
-It's is highly advised that you know what you're doing with this script. You MUST have certain amount of knowledge of what shell script is.
+It is highly advised that you know what you're doing with this script. You MUST have certain amount of knowledge of what shell script is.
 
 ## CAUTION: Check your Concrete CMS folder.
 
@@ -45,7 +45,7 @@ sh oncretecms-backup.sh --all --relative
 
 ### 1st Option
 
-1st option will determine how much file you want to backup
+1st option will determine how much file you want to back up.
 
 #### FILES option (default)
 
@@ -69,11 +69,19 @@ back up only a SQL dump file under WHERE_IS_CONCRETE5 path
 - --database
 - -d
 
-#### ALL file option
+#### ALL option
 
 back up a SQL and all files under WHERE_IS_CONCRETE5 path
 - --all
 - -a
+
+#### ALL Files option
+
+back up all files under WHERE_IS_CONCRETE5 path. Does not back up SQL file.
+- --all-files
+- -af
+
+
 
 #### PACKAGE option
 
@@ -245,86 +253,3 @@ This is the shell script and Concrete CMS job which copies the production Concre
 
 Read inside of each script and modify the necessary parameters.
 Concrete CMS jobs are set NOT TO RUN under `production` and `default` environments make sure to adjust if it doesn't run.
-
-
-# Version History
-
-## 4.0.1 (Mar 14, 2023)
-
-- Exclude `application/files/cache` from backup
-
-## 4.0.0 (Mar 30, 2023)
-
-- Separate the variable items from the shell scripts and put them in the conf file.
-- Rename shell script file.
-
-## 3.3.1 (Nov 9, 2021)
-
-- Added -h option to tar command so that it can compress files under symbolic links
-
-## 3.3.0 (Aug 9, 2021)
-
-- Add `MYSQL_PORT` config parameter to be able to set mysql port number of mysqldump
-
-## 3.2.0 (June 2, 2021)
-
-- Add `MYSQL_CHARASET` config parameter to be able to set your default character encoding of mysqldump
-- Add `MYSQL_IF_NO_TABLESPACE` config to make the shell configurable
-- Better Readme documentation
-
-## 3.1.2 (May 24, 2021)
-
-- Add `--no-tablespaces` parameter to mysqldump commands, so that it can prevent the error `Access denied; you need (at least one of) the PROCESS privilege(s) for this operation` since MySQL 5.7.31.
-
-## 3.1.1 (May 21, 2021)
-
-- Removed `--default-character-set=utf8` parameter from mysqldump command so that if post 8.5.0 Concrete CMS has utf8mb4 DB, it will respect the DB setting.
-- TBD: whether to add default character option or not.
-
-## 3.1.0 (March 22, 2021)
-
-- config option added to save generated_overrides, proxies and language files. Default file option also now saves those config files.
-
-## 3.0.0 (March 16, 2020)
-
-- Added `concrete5-copy.sh` to copy production c5 to develop c5 if the both environment lives within a same server.
-
-## 2.2.0 (Februrary 20, 2020)
-
-- Added Concrete CMS MINIMUM and ALL Concrete CMS options
-
-## 2.1.1 (October 24, 2018)
-
-- Fixed a bug which --all option stopped in the middle and leaving the tar & sql file in WHERE_IS_CONCRETE5 Path.
-- Better documentation
-
-## 2.1 (June 28, 2018)
-
-Changed compress option from zip to tar because tar is better to contain file ownership and group information.
-
-## 2.0L (April 3, 2016)
-
-Made the legacy version to support Concrete CMS.6.x and before. Switch the branch to [legacy](https://github.com/katzueno/Concrete CMS-backup-shell/tree/legacy).
-
-## 2.0 (December 28, 2015)
-
-- `--single-transaction` option added to MySQLdump command (thanks Endo-san)
-- 2nd option of relative path or absolute path added for Mac OS user (thanks Endo-san)
-- database option added: option to only back-up the SQL dump file
-- Some script validation using [www.shellcheck.net](http://www.shellcheck.net)
-- Fix some English
-
-## 1.0.1 (December 26, 2015)
-
-- Fix where the ALL option generates error because it was indicating the same zip location twice.
-
-## 1.0 (December 26, 2015)
-
-- First version.
-
-# Contact
-
-http://katzueno.com/
-
-Please feel free to create an issue or send me a pull request.
-Your feedback is always welcome!
