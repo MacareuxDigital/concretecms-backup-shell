@@ -38,45 +38,54 @@ else
     NO_2nd_OPTION="1"
 fi
 
+# Parse the third option for exclusions
+EXCLUDE_OPTION=""
+if [ -n "$3" ]; then
+    IFS=',' read -r -a EXCLUDE_DIRS <<< "$3"
+    for DIR in "${EXCLUDE_DIRS[@]}"; do
+        EXCLUDE_OPTION+="--exclude ${BASE_PATH}/${DIR} "
+    done
+fi
+
 if [ "$1" = "--all" ] || [ "$1" = "-a" ]; then
     echo "c5 Backup: You've chosen the ALL option. Now we're backing up all concrete5 directory files."
     TAR_OPTION="${BASE_PATH}/*"
-    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/"
+    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
     NO_OPTION="0"
 elif [ "$1" = "--c5-min" ] || [ "$1" = "--c5-minimum" ] || [ "$1" = "-cm" ]; then
     echo "c5 Backup: You've chosen the all concrete5 option. Now we're backing up the SQL, application/ concrete/, packages/ folders and concrete5 files."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/concrete/ ${BASE_PATH}/packages/ ${BASE_PATH}/updates/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
-    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/"
+    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/ ${EXCLUDE_OPTION}"
     NO_OPTION="0"
 elif [ "$1" = "--all-c5" ] || [ "$1" = "-c" ]; then
     echo "c5 Backup: You've chosen the all concrete5 option. Now we're backing up the SQL, application/ concrete/, packages/ folders and concrete5 files."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/concrete/ ${BASE_PATH}/packages/ ${BASE_PATH}/updates/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
-    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/"
+    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
     NO_OPTION="0"
 elif [ "$1" = "--all-files" ] || [ "$1" = "-af" ]; then
     echo "c5 Backup: You've chosen the all-files option. Now we're backing up all files in the Concrete CMS directory excluding the database."
     TAR_OPTION="${BASE_PATH}/*"
-    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/"
+    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
     NO_OPTION="0"
 elif [ "$1" = "--packages" ] || [ "$1" = "--package" ] || [ "$1" = "-p" ]; then
     echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/ and packages/ folder."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/packages/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
-    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/"
+    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
     NO_OPTION="0"
 elif [ "$1" = "--database" ] || [ "$1" = "-d" ]; then
     echo "c5 Backup: You've chosen the DATABASE option. Now we're only backing up the SQL file."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql"
-    TAR_OPTION_EXCLUDE=""
+    TAR_OPTION_EXCLUDE="${EXCLUDE_OPTION}"
     NO_OPTION="0"
 elif [ "$1" = "--config" ] || [ "$1" = "-config" ] || [ "$1" = "-c" ]; then
     echo "c5 Backup: You've chosen the CONFIG option. Now we're backing up the SQL generated_overrides, doctrine files and language files."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
-    TAR_OPTION_EXCLUDE=""
+    TAR_OPTION_EXCLUDE="${EXCLUDE_OPTION}"
     NO_OPTION="0"
 elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
     echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL, application/files, config/generated_overrides config/doctrine files, and language files"
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
-    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/"
+    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
     NO_OPTION="0"
 elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     echo "
@@ -100,14 +109,10 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     --------------------
     -r OR --relative: This is default option. You can leave this option blank
     -a OR --absolute: The script will execute using absolute path.
-    
-    * Second option is optional. You must specify 1st option if you want to specify 2nd option.
-
     --------------------
     Third Option (Optional)
     --------------------
     Comma-separated list of directories to exclude from the backup
-
     * Third option is optional. You must specify 1st and 2nd options if you want to specify 3rd option.
     ====================
     
@@ -166,7 +171,6 @@ echo "c5 Backup: USE IT AT YOUR OWN RISK!"
 echo "===================="
 echo "c5 Backup:"
 echo "c5 Backup: Starting concrete5 backup..."
-
 # ---- Executing the commands -----
 echo "c5 Backup: Switching current directory to"
 echo "${WHERE_IS_CONCRETE5}"
@@ -195,15 +199,15 @@ if [ "$1" != "--all-files" ] && [ "$1" != "-af" ]; then
 fi
 
 echo "c5 Backup: Now compressing files into a tar file..."
-# zip -r -q ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${TAR_OPTION}
 tar ${TAR_OPTION_EXCLUDE} -chzpf ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz -C ${BASE_PATH} ${TAR_OPTION}
+
 if [ "$1" != "--all-files" ] && [ "$1" != "-af" ]; then
     echo "c5 Backup: Now removing SQL dump file..."
     rm -f ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql
 fi
+
 echo "c5 Backup: Now moving the backup file(s) to the final destination..."
 echo "${WHERE_TO_SAVE}"
-# mv ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.zip ${WHERE_TO_SAVE}
 mv ${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.tar.gz ${WHERE_TO_SAVE}
 
-echo "c5 Backup: Completed!"
+echo "c5 Backup: Backup completed successfully!"
