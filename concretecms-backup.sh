@@ -53,6 +53,11 @@ elif [ "$1" = "--all-c5" ] || [ "$1" = "-c" ]; then
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/concrete/ ${BASE_PATH}/packages/ ${BASE_PATH}/updates/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
     TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/"
     NO_OPTION="0"
+elif [ "$1" = "--all-files" ] || [ "$1" = "-af" ]; then
+    echo "c5 Backup: You've chosen the all-files option. Now we're backing up all files in the Concrete CMS directory excluding the database."
+    TAR_OPTION="${BASE_PATH}/*"
+    TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/"
+    NO_OPTION="0"
 elif [ "$1" = "--packages" ] || [ "$1" = "--package" ] || [ "$1" = "-p" ]; then
     echo "c5 Backup: You've chosen the PACKAGE option. Now we're backing up the SQL, application/ and packages/ folder."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/packages/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
