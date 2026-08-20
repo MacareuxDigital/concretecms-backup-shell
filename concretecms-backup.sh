@@ -77,7 +77,7 @@ elif [ "$1" = "--database" ] || [ "$1" = "-d" ]; then
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql"
     TAR_OPTION_EXCLUDE="${EXCLUDE_OPTION}"
     NO_OPTION="0"
-elif [ "$1" = "--config" ] || [ "$1" = "-config" ]; then
+elif [ "$1" = "--config" ] || [ "$1" = "-config" ] || [ "$1" = "-C" ]; then
     echo "c5 Backup: You've chosen the CONFIG option. Now we're backing up the SQL generated_overrides, doctrine files and language files."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
     TAR_OPTION_EXCLUDE="${EXCLUDE_OPTION}"
@@ -100,7 +100,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     --all-files OR -af: back up all files and folders except the database
     --all-c5 OR -c: back up a SQL and all concrete5 related files under WHERE_IS_CONCRETE5 path
     --all OR -a: back up a SQL and ALL files under WHERE_IS_CONCRETE5 path
-    --config OR -config: backup a SQL and generated_overrides and doctrine files
+    --config OR -C: backup a SQL and generated_overrides and doctrine files
     --database OR -d: back up only a SQL dump
     --packages OR --package OR -p: back up a SQL, and the files in application/, packages/
     --help OR -h: This help option.
