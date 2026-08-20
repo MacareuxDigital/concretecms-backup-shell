@@ -20,7 +20,7 @@ set -e
 # concretecms-backup.conf should be stored in the same directory as concretecms-backup.sh
 #-----------------------------------------------------------
 
-source ./concretecms-backup.conf
+. ./concretecms-backup.conf
 
 # ==============================
 #
@@ -40,12 +40,22 @@ fi
 
 # Parse the third option for exclusions
 EXCLUDE_OPTION=""
-if [ -n "$3" ]; then
-    IFS=',' read -r -a EXCLUDE_DIRS <<< "$3"
-    for DIR in "${EXCLUDE_DIRS[@]}"; do
-        EXCLUDE_OPTION+="--exclude ${BASE_PATH}/${DIR} "
-    done
-fi
+EXCLUDE_DIRS=$3
+while [ -n "$EXCLUDE_DIRS" ]; do
+    case "$EXCLUDE_DIRS" in
+        *,*)
+            DIR=${EXCLUDE_DIRS%%,*}
+            EXCLUDE_DIRS=${EXCLUDE_DIRS#*,}
+            ;;
+        *)
+            DIR=$EXCLUDE_DIRS
+            EXCLUDE_DIRS=""
+            ;;
+    esac
+    if [ -n "$DIR" ]; then
+        EXCLUDE_OPTION="${EXCLUDE_OPTION}--exclude ${BASE_PATH}/${DIR} "
+    fi
+done
 
 if [ "$1" = "--all" ] || [ "$1" = "-a" ]; then
     echo "c5 Backup: You've chosen the ALL option. Now we're backing up all concrete5 directory files."
