@@ -60,7 +60,7 @@ back up a SQL and the files in application/files, application/config/generated_o
 back up a SQL and the files in application/config/generated_overrides, application/config/doctrine and application/language files.
 - [no option]
 - --config
-- -c
+- -config
 
 #### DATABASE option
 
