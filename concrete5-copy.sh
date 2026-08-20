@@ -80,10 +80,16 @@ echo "===================="
 echo "c5 Copy: Change Database Name"
 echo "===================="
 echo "**START** Replace database.php info to target database"
-sed -i "s/'server' => '${ORIGIN_MYSQL_SERVER}',/'server' => '${ORIGIN_MYSQL_SERVER}',/g" ${WHERE_TO_COPY}/application/config/database.php
-sed -i "s/'database' => '${ORIGIN_MYSQL_NAME}',/'database' => '${TARGET_MYSQL_NAME}',/g" ${WHERE_TO_COPY}/application/config/database.php
-sed -i "s/'username' => '${ORIGIN_MYSQL_USER}',/'username' => '${TARGET_MYSQL_USER}',/g" ${WHERE_TO_COPY}/application/config/database.php
-sed -i "s/'password' => '${ORIGIN_MYSQL_PASSWORD}',/'password' => '${TARGET_MYSQL_PASSWORD}',/g" ${WHERE_TO_COPY}/application/config/database.php
+DATABASE_CONFIG="${WHERE_TO_COPY}/application/config/database.php"
+DATABASE_CONFIG_TMP=$(mktemp "${DATABASE_CONFIG}.tmp.XXXXXX")
+trap 'rm -f "$DATABASE_CONFIG_TMP"' 0 1 2 15
+sed -e "s/'server' => '${ORIGIN_MYSQL_SERVER}',/'server' => '${TARGET_MYSQL_SERVER}',/g" \
+    -e "s/'database' => '${ORIGIN_MYSQL_NAME}',/'database' => '${TARGET_MYSQL_NAME}',/g" \
+    -e "s/'username' => '${ORIGIN_MYSQL_USER}',/'username' => '${TARGET_MYSQL_USER}',/g" \
+    -e "s/'password' => '${ORIGIN_MYSQL_PASSWORD}',/'password' => '${TARGET_MYSQL_PASSWORD}',/g" \
+    "$DATABASE_CONFIG" > "$DATABASE_CONFIG_TMP"
+mv "$DATABASE_CONFIG_TMP" "$DATABASE_CONFIG"
+trap - 0 1 2 15
 
 echo "c5 Copy:"
 echo "c5 Copy:"
