@@ -57,7 +57,7 @@ elif [ "$1" = "--c5-min" ] || [ "$1" = "--c5-minimum" ] || [ "$1" = "-cm" ]; the
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/concrete/ ${BASE_PATH}/packages/ ${BASE_PATH}/updates/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
     TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/ ${EXCLUDE_OPTION}"
     NO_OPTION="0"
-elif [ "$1" = "--all-c5" ] || [ "$1" = "-c" ]; then
+elif [ "$1" = "--all-c5" ] || [ "$1" = "-C" ]; then
     echo "c5 Backup: You've chosen the all concrete5 option. Now we're backing up the SQL, application/ concrete/, packages/ folders and concrete5 files."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/concrete/ ${BASE_PATH}/packages/ ${BASE_PATH}/updates/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
     TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
@@ -98,9 +98,9 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     --files OR --file OR -f: back up a SQL and the files in application/files. This is default option.
     --c5-minimum OR --c5-min OR -cm: back up a SQL, application EXCEPT files, concrete, packages and root concrete5 files
     --all-files OR -af: back up all files and folders except the database
-    --all-c5 OR -c: back up a SQL and all concrete5 related files under WHERE_IS_CONCRETE5 path
+    --all-c5 OR -C: back up a SQL and all concrete5 related files under WHERE_IS_CONCRETE5 path
     --all OR -a: back up a SQL and ALL files under WHERE_IS_CONCRETE5 path
-    --config OR -c: backup a SQL and generated_overrides and doctine files
+    --config OR -c: backup a SQL and generated_overrides and doctrine files
     --database OR -d: back up only a SQL dump
     --packages OR --package OR -p: back up a SQL, and the files in application/, packages/
     --help OR -h: This help option.
