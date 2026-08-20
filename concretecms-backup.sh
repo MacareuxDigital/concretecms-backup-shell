@@ -82,7 +82,7 @@ elif [ "$1" = "--config" ] || [ "$1" = "-config" ] || [ "$1" = "-c" ]; then
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
     TAR_OPTION_EXCLUDE="${EXCLUDE_OPTION}"
     NO_OPTION="0"
-elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
+elif [ "$1" = "--files" ] || [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
     echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL, application/files, config/generated_overrides config/doctrine files, and language files"
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
     TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
