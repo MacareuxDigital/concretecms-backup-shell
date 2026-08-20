@@ -60,7 +60,7 @@ back up a SQL and the files in application/files, application/config/generated_o
 back up a SQL and the files in application/config/generated_overrides, application/config/doctrine and application/language files.
 - [no option]
 - --config
-- -C
+- -c
 
 #### DATABASE option
 
@@ -108,7 +108,7 @@ back up a SQL, and application, concrete, packages, updates folders and composer
 This is useful option if the Concrete CMS root directory contains many non-Concrete CMS folders. It won't backup any other non-Concrete CMS files on the Concrete CMS document root directory such as sitemap.xml, site verification files.
 
 - --all-c5
-- -c
+- -C
 
 #### HELP option
 
