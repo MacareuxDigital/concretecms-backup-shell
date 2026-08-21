@@ -118,14 +118,14 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     
     Have a good day!
 "
-    exit
+    exit 0
 else
     NO_OPTION="1"
 fi
 
 if [ "$NO_OPTION" = "1" ] || [ "$NO_2nd_OPTION" = "1" ]; then
     echo "c5 Backup ERROR: You specified WRONG OPTION. Please try 'sh concrete5-backup.sh -h' for the available options."
-    exit
+    exit 1
 fi
 
 # ---- tablespace option after MySQL 5.7.31
@@ -135,34 +135,34 @@ elif [ "$MYSQL_IF_NO_TABLESPACE" = "FALSE" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "F
     MYSQLDUMP_OPTION_TABLESPACE=""
 else
     echo "c5 Backup ERROR: MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"
-    exit
+    exit 1
 fi
 
 # ---- Checking Variable -----
 echo "c5 Backup: Checking variables..."
 if [ -z "$WHERE_TO_SAVE" ] || [ "$WHERE_TO_SAVE" = " " ]; then
     echo "c5 Backup ERROR: WHERE_TO_SAVE variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$WHERE_IS_CONCRETE5" ] || [ "$WHERE_IS_CONCRETE5" = " " ]; then
     echo "c5 Backup ERROR: WHERE_IS_CONCRETE5 variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$NOW_TIME" ] || [ "$NOW_TIME" = " " ]; then
     echo "c5 Backup ERROR: NOW_TIME variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$MYSQL_SERVER" ] || [ "$MYSQL_SERVER" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_SERVER variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$MYSQL_USER" ] || [ "$MYSQL_USER" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_USER variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$MYSQL_NAME" ] || [ "$MYSQL_NAME" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_NAME variable is not set in the shell script"
-    exit
+    exit 1
 fi
 
 # ---- Starting shell -----
