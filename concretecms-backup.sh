@@ -125,7 +125,7 @@ fi
 
 if [ "$NO_OPTION" = "1" ] || [ "$NO_2nd_OPTION" = "1" ]; then
     echo "c5 Backup ERROR: You specified WRONG OPTION. Please try 'sh concretecms-backup.sh -h' for the available options."
-    exit
+    exit 1
 fi
 
 # ---- tablespace option after MySQL 5.7.31
