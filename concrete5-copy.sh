@@ -61,7 +61,7 @@ echo "c5 Copy:"
 echo "===================="
 echo "c5 Copy: MySQL Copy"
 echo "===================="
-mysqldump -h ${ORIGIN_MYSQL_SERVER} -u ${ORIGIN_MYSQL_USER} --password=${ORIGIN_MYSQL_PASSWORD}  --single-transaction --default-character-set=${ORIGIN_MYSQL_CHARASET} ${MYSQLDUMP_OPTION_TABLESPACE} ${ORIGIN_MYSQL_NAME} | mysql -h ${TARGET_MYSQL_SERVER} -u ${TARGET_MYSQL_USER} --password=${TARGET_MYSQL_PASSWORD} ${TARGET_MYSQL_NAME}
+mysqldump -h "$ORIGIN_MYSQL_SERVER" -u "$ORIGIN_MYSQL_USER" --password="$ORIGIN_MYSQL_PASSWORD" --single-transaction --default-character-set="$ORIGIN_MYSQL_CHARASET" ${MYSQLDUMP_OPTION_TABLESPACE} "$ORIGIN_MYSQL_NAME" | mysql -h "$TARGET_MYSQL_SERVER" -u "$TARGET_MYSQL_USER" --password="$TARGET_MYSQL_PASSWORD" "$TARGET_MYSQL_NAME"
 echo "c5 Copy: MySQL copy is done!"
 
 echo "c5 Copy:"
@@ -80,10 +80,37 @@ echo "===================="
 echo "c5 Copy: Change Database Name"
 echo "===================="
 echo "**START** Replace database.php info to target database"
-sed -i "s/'server' => '${ORIGIN_MYSQL_SERVER}',/'server' => '${ORIGIN_MYSQL_SERVER}',/g" ${WHERE_TO_COPY}/application/config/database.php
-sed -i "s/'database' => '${ORIGIN_MYSQL_NAME}',/'database' => '${TARGET_MYSQL_NAME}',/g" ${WHERE_TO_COPY}/application/config/database.php
-sed -i "s/'username' => '${ORIGIN_MYSQL_USER}',/'username' => '${TARGET_MYSQL_USER}',/g" ${WHERE_TO_COPY}/application/config/database.php
-sed -i "s/'password' => '${ORIGIN_MYSQL_PASSWORD}',/'password' => '${TARGET_MYSQL_PASSWORD}',/g" ${WHERE_TO_COPY}/application/config/database.php
+DATABASE_CONFIG="${WHERE_TO_COPY}/application/config/database.php"
+DATABASE_CONFIG_TMP=$(mktemp "${DATABASE_CONFIG}.tmp.XXXXXX")
+trap 'rm -f "$DATABASE_CONFIG_TMP"; exit 1' HUP INT TERM
+trap 'rm -f "$DATABASE_CONFIG_TMP"' EXIT
+
+# Escape values used in sed patterns and replacements. The pipe is the sed
+# delimiter, so forward slashes in database credentials need no special handling.
+sed_pattern_escape() {
+    printf '%s' "$1" | sed 's/[][\.^$*|]/\\&/g'
+}
+
+sed_replacement_escape() {
+    printf '%s' "$1" | sed 's/[\\&|]/\\&/g'
+}
+
+ORIGIN_MYSQL_SERVER_PATTERN=$(sed_pattern_escape "$ORIGIN_MYSQL_SERVER")
+ORIGIN_MYSQL_NAME_PATTERN=$(sed_pattern_escape "$ORIGIN_MYSQL_NAME")
+ORIGIN_MYSQL_USER_PATTERN=$(sed_pattern_escape "$ORIGIN_MYSQL_USER")
+ORIGIN_MYSQL_PASSWORD_PATTERN=$(sed_pattern_escape "$ORIGIN_MYSQL_PASSWORD")
+TARGET_MYSQL_SERVER_REPLACEMENT=$(sed_replacement_escape "$TARGET_MYSQL_SERVER")
+TARGET_MYSQL_NAME_REPLACEMENT=$(sed_replacement_escape "$TARGET_MYSQL_NAME")
+TARGET_MYSQL_USER_REPLACEMENT=$(sed_replacement_escape "$TARGET_MYSQL_USER")
+TARGET_MYSQL_PASSWORD_REPLACEMENT=$(sed_replacement_escape "$TARGET_MYSQL_PASSWORD")
+
+sed -e "s|'server' => '${ORIGIN_MYSQL_SERVER_PATTERN}',|'server' => '${TARGET_MYSQL_SERVER_REPLACEMENT}',|g" \
+    -e "s|'database' => '${ORIGIN_MYSQL_NAME_PATTERN}',|'database' => '${TARGET_MYSQL_NAME_REPLACEMENT}',|g" \
+    -e "s|'username' => '${ORIGIN_MYSQL_USER_PATTERN}',|'username' => '${TARGET_MYSQL_USER_REPLACEMENT}',|g" \
+    -e "s|'password' => '${ORIGIN_MYSQL_PASSWORD_PATTERN}',|'password' => '${TARGET_MYSQL_PASSWORD_REPLACEMENT}',|g" \
+    "$DATABASE_CONFIG" > "$DATABASE_CONFIG_TMP"
+mv "$DATABASE_CONFIG_TMP" "$DATABASE_CONFIG"
+trap - EXIT HUP INT TERM
 
 echo "c5 Copy:"
 echo "c5 Copy:"
