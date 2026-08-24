@@ -82,7 +82,8 @@ echo "===================="
 echo "**START** Replace database.php info to target database"
 DATABASE_CONFIG="${WHERE_TO_COPY}/application/config/database.php"
 DATABASE_CONFIG_TMP=$(mktemp "${DATABASE_CONFIG}.tmp.XXXXXX")
-trap 'rm -f "$DATABASE_CONFIG_TMP"' 0 1 2 15
+trap 'rm -f "$DATABASE_CONFIG_TMP"; exit 1' HUP INT TERM
+trap 'rm -f "$DATABASE_CONFIG_TMP"' EXIT
 
 # Escape values used in sed patterns and replacements. The pipe is the sed
 # delimiter, so forward slashes in database credentials need no special handling.
@@ -109,7 +110,7 @@ sed -e "s|'server' => '${ORIGIN_MYSQL_SERVER_PATTERN}',|'server' => '${TARGET_MY
     -e "s|'password' => '${ORIGIN_MYSQL_PASSWORD_PATTERN}',|'password' => '${TARGET_MYSQL_PASSWORD_REPLACEMENT}',|g" \
     "$DATABASE_CONFIG" > "$DATABASE_CONFIG_TMP"
 mv "$DATABASE_CONFIG_TMP" "$DATABASE_CONFIG"
-trap - 0 1 2 15
+trap - EXIT HUP INT TERM
 
 echo "c5 Copy:"
 echo "c5 Copy:"
