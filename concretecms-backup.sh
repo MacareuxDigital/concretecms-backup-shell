@@ -20,7 +20,7 @@ set -e
 # concretecms-backup.conf should be stored in the same directory as concretecms-backup.sh
 #-----------------------------------------------------------
 
-source ./concretecms-backup.conf
+. ./concretecms-backup.conf
 
 # ==============================
 #
@@ -40,12 +40,22 @@ fi
 
 # Parse the third option for exclusions
 EXCLUDE_OPTION=""
-if [ -n "$3" ]; then
-    IFS=',' read -r -a EXCLUDE_DIRS <<< "$3"
-    for DIR in "${EXCLUDE_DIRS[@]}"; do
-        EXCLUDE_OPTION+="--exclude ${BASE_PATH}/${DIR} "
-    done
-fi
+EXCLUDE_DIRS=$3
+while [ -n "$EXCLUDE_DIRS" ]; do
+    case "$EXCLUDE_DIRS" in
+        *,*)
+            DIR=${EXCLUDE_DIRS%%,*}
+            EXCLUDE_DIRS=${EXCLUDE_DIRS#*,}
+            ;;
+        *)
+            DIR=$EXCLUDE_DIRS
+            EXCLUDE_DIRS=""
+            ;;
+    esac
+    if [ -n "$DIR" ]; then
+        EXCLUDE_OPTION="${EXCLUDE_OPTION}--exclude ${BASE_PATH}/${DIR} "
+    fi
+done
 
 if [ "$1" = "--all" ] || [ "$1" = "-a" ]; then
     echo "c5 Backup: You've chosen the ALL option. Now we're backing up all concrete5 directory files."
@@ -57,7 +67,7 @@ elif [ "$1" = "--c5-min" ] || [ "$1" = "--c5-minimum" ] || [ "$1" = "-cm" ]; the
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/concrete/ ${BASE_PATH}/packages/ ${BASE_PATH}/updates/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
     TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/ ${EXCLUDE_OPTION}"
     NO_OPTION="0"
-elif [ "$1" = "--all-c5" ] || [ "$1" = "-c" ]; then
+elif [ "$1" = "--all-c5" ] || [ "$1" = "-C" ]; then
     echo "c5 Backup: You've chosen the all concrete5 option. Now we're backing up the SQL, application/ concrete/, packages/ folders and concrete5 files."
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/ ${BASE_PATH}/concrete/ ${BASE_PATH}/packages/ ${BASE_PATH}/updates/ ${BASE_PATH}/composer.json ${BASE_PATH}/composer.lock ${BASE_PATH}/index.php ${BASE_PATH}/robots.txt"
     TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
@@ -82,7 +92,7 @@ elif [ "$1" = "--config" ] || [ "$1" = "-config" ] || [ "$1" = "-c" ]; then
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
     TAR_OPTION_EXCLUDE="${EXCLUDE_OPTION}"
     NO_OPTION="0"
-elif [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
+elif [ "$1" = "--files" ] || [ "$1" = "--file" ] || [ "$1" = "-files" ] || [ "$1" = "-f" ] || [ "$1" = "" ]; then
     echo "c5 Backup: You've chosen the DEFAULT FILE option. Now we're backing up the SQL, application/files, config/generated_overrides config/doctrine files, and language files"
     TAR_OPTION="${BASE_PATH}/${FILE_NAME}_${NOW_TIME}.sql ${BASE_PATH}/application/files/ ${BASE_PATH}/application/config/doctrine ${BASE_PATH}/application/config/generated_overrides ${BASE_PATH}/application/languages"
     TAR_OPTION_EXCLUDE="--exclude ${BASE_PATH}/application/files/cache/ ${EXCLUDE_OPTION}"
@@ -98,9 +108,9 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     --files OR --file OR -f: back up a SQL and the files in application/files. This is default option.
     --c5-minimum OR --c5-min OR -cm: back up a SQL, application EXCEPT files, concrete, packages and root concrete5 files
     --all-files OR -af: back up all files and folders except the database
-    --all-c5 OR -c: back up a SQL and all concrete5 related files under WHERE_IS_CONCRETE5 path
+    --all-c5 OR -C: back up a SQL and all concrete5 related files under WHERE_IS_CONCRETE5 path
     --all OR -a: back up a SQL and ALL files under WHERE_IS_CONCRETE5 path
-    --config OR -c: backup a SQL and generated_overrides and doctine files
+    --config OR -c: backup a SQL and generated_overrides and doctrine files
     --database OR -d: back up only a SQL dump
     --packages OR --package OR -p: back up a SQL, and the files in application/, packages/
     --help OR -h: This help option.
@@ -118,14 +128,14 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     
     Have a good day!
 "
-    exit
+    exit 0
 else
     NO_OPTION="1"
 fi
 
 if [ "$NO_OPTION" = "1" ] || [ "$NO_2nd_OPTION" = "1" ]; then
-    echo "c5 Backup ERROR: You specified WRONG OPTION. Please try 'sh concrete5-backup.sh -h' for the available options."
-    exit
+    echo "c5 Backup ERROR: You specified WRONG OPTION. Please try 'sh concretecms-backup.sh -h' for the available options."
+    exit 1
 fi
 
 # ---- tablespace option after MySQL 5.7.31
@@ -135,34 +145,34 @@ elif [ "$MYSQL_IF_NO_TABLESPACE" = "FALSE" ] || [ "$MYSQL_IF_NO_TABLESPACE" = "F
     MYSQLDUMP_OPTION_TABLESPACE=""
 else
     echo "c5 Backup ERROR: MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"
-    exit
+    exit 1
 fi
 
 # ---- Checking Variable -----
 echo "c5 Backup: Checking variables..."
 if [ -z "$WHERE_TO_SAVE" ] || [ "$WHERE_TO_SAVE" = " " ]; then
     echo "c5 Backup ERROR: WHERE_TO_SAVE variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$WHERE_IS_CONCRETE5" ] || [ "$WHERE_IS_CONCRETE5" = " " ]; then
     echo "c5 Backup ERROR: WHERE_IS_CONCRETE5 variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$NOW_TIME" ] || [ "$NOW_TIME" = " " ]; then
     echo "c5 Backup ERROR: NOW_TIME variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$MYSQL_SERVER" ] || [ "$MYSQL_SERVER" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_SERVER variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$MYSQL_USER" ] || [ "$MYSQL_USER" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_USER variable is not set in the shell script"
-    exit
+    exit 1
 fi
 if [ -z "$MYSQL_NAME" ] || [ "$MYSQL_NAME" = " " ]; then
     echo "c5 Backup ERROR: MYSQL_NAME variable is not set in the shell script"
-    exit
+    exit 1
 fi
 
 # ---- Starting shell -----

@@ -46,7 +46,7 @@ elif [ "$ORIGIN_MYSQL_IF_NO_TABLESPACE" = "FALSE" ] || [ "$ORIGIN_MYSQL_IF_NO_TA
     MYSQLDUMP_OPTION_TABLESPACE=""
 else
     echo "c5 Backup ERROR: ORIGIN_MYSQL_IF_NO_TABLESPACE variable is not properly set in the shell script"
-    exit
+    exit 1
 fi
 
 # ---- Starting shell -----
